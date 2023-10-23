@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* background-color: #B1CBCC; */
 }
 
 code {
@@ -29,11 +30,19 @@ li .btn{
 .nav-container{
   justify-content: center;
   align-items: center;
-  margin-top: 15%;
+  margin-top: 7%;
 }
 
 #logo{
-  width: 20%;
+  width: 30%;
   height: auto;
   margin-top: 30px;
+}
+
+.header{
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  width: 50%;
+  margin: auto;
 }
