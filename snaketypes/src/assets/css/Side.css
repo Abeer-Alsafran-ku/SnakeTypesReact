@@ -1,4 +1,9 @@
-    
+   
+  .user-logo img{
+    width: 90%;
+    height: auto;
+  }
+   
   body {
     font-family: "Poppins", Arial, sans-serif;
     font-size: 14px;

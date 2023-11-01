@@ -1,5 +1,6 @@
 import {Link} from 'react-router-dom';
 import '../assets/css/Side.css';
+import logo from '../assets/img/snake-logo.png'
 
 const Side = () => {
     return ( 
@@ -11,8 +12,8 @@ const Side = () => {
                 {/* image on top of the nav */}
                 <div className="img bg-wrap text-center py-4" style={{backgroundImage: 'url(images/bg_1.jpg)'}}>
                     <div className="user-logo">
-                        <div className="img" style={{backgroundImage: 'url(../src/assets/img/)'}}></div>
-                        <h3>SnakeTypes</h3>
+                        <img src={logo}></img>
+                        <h3 style={{marginTop: 3}}>SnakeTypes</h3>
                     </div>
                 </div>
 
