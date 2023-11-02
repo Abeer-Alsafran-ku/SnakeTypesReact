@@ -20,7 +20,11 @@ const Side = () => {
                 {/* nav items */}
                 <ul className="list-unstyled components mb-5">
 
-                    <li className='active'><Link to="/stage">Play</Link></li>
+                    <li className='active'>
+                        {/* <img src={logo} width="100px"></img> */}
+                        <Link to="/stage">Play</Link>
+                        {/* <img src={logo} width="100px"></img> */}
+                    </li>
                     <li><Link to="/">Home</Link></li>
                     <li><Link to="/">Settings</Link></li>
                     
