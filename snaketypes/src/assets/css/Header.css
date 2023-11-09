@@ -6,6 +6,10 @@
     margin: auto;
   }
 
+  .Header h1{
+    /* position: center; */
+  }
+
   #logo{
     width: 37%;
     height: auto;
