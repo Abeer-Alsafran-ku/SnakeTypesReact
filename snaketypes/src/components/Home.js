@@ -1,15 +1,13 @@
-import {Link} from 'react-router-dom'
-import '../assets/css/Home.css';
-import { useState } from 'react';
+import { Link } from "react-router-dom";
+import "../assets/css/Home.css";
+import { useState } from "react";
 
 const Home = () => {
-
-    return (
-    
+  return (
     <div className="Home">
-        <h3>Home Page</h3>
+      <h3>Home Page</h3>
     </div>
-    );
-}
- 
+  );
+};
+
 export default Home;

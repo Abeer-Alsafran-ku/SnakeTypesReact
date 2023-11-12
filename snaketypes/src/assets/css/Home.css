@@ -1,19 +1,19 @@
-.Home{
-    justify-content: center;
-    align-items: center;
-    margin-top: 7%;
-  }
+.Home {
+  justify-content: center;
+  align-items: center;
+  margin-top: 7%;
+}
 
-  .Home ul{
-    position: center;
-    list-style-type: none;
-  }
-  
-  .Home ul li .btn{
-    height: 60px;
-    width: 200px;
-    margin-top: 10px;
-    border-radius: 30px;
-    background-color: #3E5D81;
-    font-size: 20px;
-  }
+.Home ul {
+  position: center;
+  list-style-type: none;
+}
+
+.Home ul li .btn {
+  height: 60px;
+  width: 200px;
+  margin-top: 10px;
+  border-radius: 30px;
+  background-color: #3e5d81;
+  font-size: 20px;
+}
