@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
 import "../assets/css/Side.css";
 import logo from "../assets/img/snake-logo.png";
+import playicon from "../assets/img/play-icon.png";
+import homeicon from "../assets/img/home-icon.png";
+import loginicon from "../assets/img/login-icon.png";
+import profileicon from "../assets/img/profile-icon.png";
 
 const Side = () => {
   return (
@@ -13,22 +17,42 @@ const Side = () => {
         >
           <div className="user-logo">
             <img src={logo}></img>
-            <h3 style={{ marginTop: 3 }}>SnakeTypes</h3>
+            <h3 style={{ marginTop: 10 }}>SnakeTypes</h3>
           </div>
         </div>
 
         {/* nav items */}
         <ul className="list-unstyled components mb-5">
+          {/*play*/}
           <li className="active">
-            {/* <img src={logo} width="100px"></img> */}
-            <Link to="/stage">Play</Link>
-            {/* <img src={logo} width="100px"></img> */}
+            <Link to="/stage" className="li-container">
+              <img src={playicon} width="60px"></img>
+              <span>Play</span>
+            </Link>
           </li>
-          <li>
-            <Link to="/">Home</Link>
+
+          {/*home*/}
+          <li className="active">
+            <Link to="/" className="li-container">
+              <img src={homeicon} width="60px"></img>
+              <span>Home</span>
+            </Link>
           </li>
-          <li>
-            <Link to="Login">Log in</Link>
+
+          {/*login*/}
+          <li className="active">
+            <Link to="/Login" className="li-container">
+              <img src={loginicon} width="60px"></img>
+              <span>Log in</span>
+            </Link>
+          </li>
+
+          {/*profile*/}
+          <li className="active">
+            <Link to="/Profile" className="li-container">
+              <img src={profileicon} width="60px"></img>
+              <span>Profile</span>
+            </Link>
           </li>
         </ul>
       </nav>

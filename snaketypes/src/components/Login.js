@@ -2,7 +2,7 @@ import "../assets/css/Login.css";
 const Login = () => {
   return (
     <div className="Login">
-      <form className="login">
+      <form className="flogin">
         <div>
           <input type="email" placeholder="Enter your email .."></input>
         </div>
@@ -13,11 +13,13 @@ const Login = () => {
           Log In
         </button>
       </form>
-      <br />
-      <br />
-      <br></br>
 
-      <form className="register">
+      <br />
+      <br />
+      <br />
+      <br />
+
+      <form className="fregister">
         <div>
           <input type="user" placeholder="Enter your name .."></input>
         </div>
