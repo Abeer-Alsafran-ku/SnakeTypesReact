@@ -5,7 +5,7 @@ const Header = () => {
   return (
     <div className="Header">
       <img src={logo} alt="went wrong" id="logo"></img>
-      <h1 style={{ textAlign: "center" }}>SnakeTypes</h1>
+      <h1 style={{ textAlign: "center", fontSize: 60 }}>SnakeTypes</h1>
     </div>
   );
 };
