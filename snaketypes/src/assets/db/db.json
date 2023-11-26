@@ -1,10 +1,15 @@
 {
-  "users": [
-    {
-      "username": "John Doe",
-      "avg_wpm": 60,
-      "img": "../assets/db/john-doe.jfif"
-    }
-  ]
-
+    "users": [
+        {
+            "username": "John Doe",
+            "avg_wpm": 60,
+            "img": "../assets/db/john-doe.jfif"
+        }
+    ],
+    "words": [
+        "apple",
+        "banana",
+        "cherry",
+        "mango"
+    ]
 }
