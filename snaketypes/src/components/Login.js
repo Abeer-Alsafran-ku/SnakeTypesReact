@@ -68,7 +68,6 @@ const Login = () => {
 
         <br />
         <br />
-        <br />
 
         <form>
           <div className="fregister">
