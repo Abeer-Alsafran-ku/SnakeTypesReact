@@ -3,8 +3,10 @@ import Home from "./Home";
 import Header from "./Header";
 import Stage from "./Stage";
 import Login from "./Login";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Side from "./Side";
+import MiniProfile from "./MiniProfile";
+
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 // import { useState } from 'react';
 
 function App() {
@@ -13,7 +15,7 @@ function App() {
       <div className="App">
         <Header />
         <Side />
-
+        <MiniProfile />
         <Routes>
           {/* Home Page */}
           <Route exact path="/" Component={Home}></Route>
