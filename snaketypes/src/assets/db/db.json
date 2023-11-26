@@ -1,0 +1,10 @@
+{
+  "users": [
+    {
+      "username": "John Doe",
+      "avg_wpm": 60,
+      "img": "../assets/db/john-doe.jfif"
+    }
+  ]
+
+}
