@@ -17,7 +17,7 @@ const Side = () => {
         >
           <div className="user-logo">
             <img src={logo}></img>
-            <h3 style={{ marginTop: 3 }}>SnakeTypes</h3>
+            <h3 style={{ marginTop: 10 }}>SnakeTypes</h3>
           </div>
         </div>
 

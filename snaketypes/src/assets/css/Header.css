@@ -1,18 +1,22 @@
-.Header{
+.Header {
   display: flex;
   justify-items: center;
   align-items: center;
   width: 50%;
-  margin: auto;
+  padding: 7%;
+  margin-left: 20%;
+  margin-right: 20%;
 }
 
 .Header h1 {
   margin: 0;
+  font-size: 40;
   margin-top: 20px;
+  font-family: monospace;
 }
 
-#logo{
-  width: 37%;
+#logo {
+  min-width: 60%;
   height: auto;
-  margin-top: 30px;
+  margin-top: 20px;
 }
