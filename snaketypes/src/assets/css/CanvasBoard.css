@@ -1,0 +1,26 @@
+
+.words-container{
+    width: 1005px;
+    height: 100px;
+    background-color: #3E5D81;
+    margin: auto;
+    border: solid black 3px;
+    border-bottom: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+}
+
+.word-box{
+    width: 100px;
+    height: 30px;
+    border: solid lightgreen 3px;
+    margin-top: 5px;
+    font-size: large;
+    color: #FFFFFF;
+}
+
+.CanvasBoard canvas{
+    background-color: #2F2F2F;
+}

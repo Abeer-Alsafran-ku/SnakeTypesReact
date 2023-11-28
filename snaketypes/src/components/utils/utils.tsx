@@ -14,7 +14,7 @@ export const drawObject = (
   context: CanvasRenderingContext2D | null,
   objectBody: IObjectBody[],
   fillColor: string,
-  strokeStyle = "#146356"
+  strokeStyle = "#FFFFFF"
 ) => {
   if (context) {
     objectBody.forEach((object: IObjectBody) => {
