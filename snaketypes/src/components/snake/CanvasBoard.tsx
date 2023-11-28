@@ -1,6 +1,8 @@
 import { useRef, useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { clearBoard, drawObject, generateRandomPosition } from "../utils/utils.tsx";
+import { IObjectBody, clearBoard, drawObject, generateRandomPosition } from "../utils/utils.tsx";
+import { IGlobalState } from "../../store/reducers/reducers.ts";
+import React from "react";
 
 export interface ICanvasBoard{
     height: number;
