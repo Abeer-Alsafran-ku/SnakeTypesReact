@@ -36,9 +36,3 @@ function randomNumber(min: number, max: number) {
       y: randomNumber(0, height),
     };
   };
-
-  export function fetchObj(url = "http://localhost:3000", resource) {
-
-    // this function will be used to fetch any resource from the database
-
-  }
