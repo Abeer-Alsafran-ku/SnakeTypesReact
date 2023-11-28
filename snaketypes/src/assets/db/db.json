@@ -1,19 +1,15 @@
 {
-  "users": [
-    {
-      "id": 1,
-      "username": "John Doe",
-      "password": "abc123@",
-      "avg_wpm": 60,
-      "img": "../assets/db/john-doe.jfif"
-    },
-    {
-      "id": 2,
-      "username": "jjj kkk",
-      "password": "a1@",
-      "avg_wpm": 100,
-      "img": "../assets/db/john-doe.jfif"
-    }
-  ],
-  "words": ["apple", "banana", "cherry", "mango"]
+    "users": [
+        {
+            "username": "John Doe",
+            "avg_wpm": 60,
+            "img": "../assets/db/john-doe.jfif"
+        }
+    ],
+    "words": [
+        "apple",
+        "banana",
+        "cherry",
+        "mango"
+    ]
 }
