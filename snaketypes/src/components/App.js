@@ -5,6 +5,8 @@ import Stage from "./Stage";
 import Login from "./Login";
 import Side from "./Side";
 import MiniProfile from "./MiniProfile";
+import Registration from "./Registration";
+
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 // import { useState } from 'react';
 
@@ -22,6 +24,8 @@ function App() {
           <Route exact path="/stage" Component={Stage} />
           {/* Login */}
           <Route exact path="/login" Component={Login} />
+          {/* Registration */}
+          <Route exact path="/registration" Component={Registration} />
         </Routes>
       </div>
     </Router>
