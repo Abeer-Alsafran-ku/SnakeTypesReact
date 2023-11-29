@@ -15,7 +15,7 @@ function App() {
       <div className="App">
         <Header />
         <Side />
-        <MiniProfile />
+        {/*<MiniProfile />*/}
         <Routes>
           {/* Home Page */}
           <Route exact path="/" Component={Home}></Route>
