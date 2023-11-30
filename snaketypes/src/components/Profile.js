@@ -6,22 +6,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-const Profile = ({ isLoggedIn }) => {
-  const defaultUserData = {
-    username: "Guest",
-    avg_wpm: 0,
-    img: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fpngtree.com%2Fso%2Fprofile-icon&psig=AOvVaw0b8pGqQmG_UYiInDS-zwDR&ust=1701388921592000&source=images&cd=vfe&ved=0CBIQjRxqFwoTCPj50-S16oIDFQAAAAAdAAAAABAJ",
-  };
-
-  //the actual data if the user logged in
-  const userData = isLoggedIn
-    ? {
-        username: "JohnDoe",
-        avatar_wpm: 50,
-        img: "https://mdbcdn.b-cdn.net/img/new/avatars/2.webp",
-      }
-    : defaultUserData;
-
+const Profile = () => {
   return (
     <>
       <div
@@ -35,23 +20,23 @@ const Profile = ({ isLoggedIn }) => {
       >
         <img
           id="user-avatar"
-          src={userData.img}
-          /*https://www.google.com/url?sa=i&url=https%3A%2F%2Fpngtree.com%2Fso%2Fprofile-icon&psig=AOvVaw0b8pGqQmG_UYiInDS-zwDR&ust=1701388921592000&source=images&cd=vfe&ved=0CBIQjRxqFwoTCPj50-S16oIDFQAAAAAdAAAAABAJ*/
+          src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
           className="rounded-circle"
           alt="Avatar"
-          style={{ display: "flex" }}
+          style={{ display: "flex", maxWidth: "7%" }}
         />
-        <Card.Title>{userData.username}</Card.Title>
+        <Card.Title>{"Username"}</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">
-          {`average ${userData.avg_wpm} wpm`}
+          {"average 50 wpm"}
         </Card.Subtitle>
         <Card.Text>
           Some quick example text to build on the card title and make up the
           bulk of the card's content.
         </Card.Text>
-        {/*<Card.Link href="#">View Stats</Card.Link>
-          <Card.Link href="#">Edit Profile</Card.Link>*/}
+        <Card.Link href="#">View Stats</Card.Link>
+        <Card.Link href="#">Edit Profile</Card.Link>
       </div>
+
       <div
         style={{
           display: "flex",
