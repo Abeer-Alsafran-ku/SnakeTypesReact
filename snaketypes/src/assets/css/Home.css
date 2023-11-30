@@ -1,13 +1,34 @@
 .Home {
   justify-content: center;
   align-items: center;
-  margin-top: 7%;
+  margin-top: 3%;
   display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.Home > div {
+  max-width: 600px;
+  padding: 20px;
+  margin: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.Home h5 {
+  font-size: 24px;
+  color: #3e5d81;
 }
 
 .Home ul {
   position: center;
   list-style-type: none;
+}
+
+.Home ul li:before {
+  content: "•";
+  color: #3e5d81;
 }
 
 .Home ul li .btn {
