@@ -85,6 +85,7 @@ const Stage = () => {
         if(lastPressed == word[trackIdx]){
             if(trackIdx + 1 == wordDiv_arr.length){
                 console.log('word completed')
+                console.log('Dispatching: "MOVE_UP"')
             }
             setTrackIdx(trackIdx + 1);
             correctColoring(wordDiv_arr, trackIdx + 1);
@@ -98,8 +99,6 @@ const Stage = () => {
     return ( 
 
                 <div className='Stage'>
-                <Side />
-
                     <div className='word'></div> {/* Gets filled with span elements for each character */}
                     <input
                         className='user-input'

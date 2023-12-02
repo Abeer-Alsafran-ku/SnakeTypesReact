@@ -10,6 +10,11 @@ const Side = () => {
   return (
     <div className="Side">
       <nav id="sidebar" className="">
+      <div className="custom-menu">
+					<button type="button" id="sidebarCollapse" className="btn btn-primary"
+            onClick={function(){document.getElementById('sidebar').classList.toggle('active')}}>
+	        </button>
+        </div>
         {/* image on top of the nav */}
         <div
           className="img bg-wrap text-center py-4"
