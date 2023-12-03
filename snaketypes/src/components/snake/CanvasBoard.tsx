@@ -4,9 +4,10 @@ import { IObjectBody, clearBoard, drawObject, generateRandomPosition } from "../
 import { IGlobalState, } from "../../store/reducers/reducers.ts";
 import React from "react";
 
-import { makeMove, MOVE_RIGHT, MOVE_LEFT, MOVE_UP, MOVE_DOWN } from "../../store/actions/actions.ts";
+import { makeMove, MOVE_RIGHT, MOVE_LEFT, MOVE_UP, MOVE_DOWN, increaseSnake, INCREMENT_SCORE, scoreUpdates } from "../../store/actions/actions.ts";
 
 import '../../assets/css/CanvasBoard.css'
+import { delay } from "redux-saga/effects";
 
 export interface ICanvasBoard {
   height: number;
@@ -19,6 +20,7 @@ const CanvasBoard = ({ height, width }: ICanvasBoard) => {
   // used to dispatch actions to reducer
   const dispatch = useDispatch();
 
+  const [isConsumed, setIsConsumed] = useState<boolean>(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [context, setContext] = useState<CanvasRenderingContext2D | null>(null);
 
@@ -98,8 +100,30 @@ const CanvasBoard = ({ height, width }: ICanvasBoard) => {
     clearBoard(context);
     drawObject(context, snake1, "#3E5D81");
     drawObject(context, [pos], "#676FA3");
+
+     //When the object is consumed
+     if (snake1[0].x === pos?.x && snake1[0].y === pos?.y) {
+      setIsConsumed(true);
+      console.log('munch')
+    }
+
   }, [context, pos, snake1, height, width, dispatch, handleKeyEvents]);
 
+  useEffect(() => {
+    console.log('useEffect')
+    //Generate new object
+    if (isConsumed) {
+      const posi = generateRandomPosition(width - 20, height - 20);
+      setPos(posi);
+      setIsConsumed(false);
+
+      //Increase snake size when object is consumed successfully
+      dispatch(increaseSnake());
+
+      //Increment the score
+      dispatch(scoreUpdates(INCREMENT_SCORE));
+    }
+  }, [isConsumed, pos, height, width, dispatch]);
 
   // adds keypress listener when the component mounts and removes it when the component unmounts
   useEffect(() => {

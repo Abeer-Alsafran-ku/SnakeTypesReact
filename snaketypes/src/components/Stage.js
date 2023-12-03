@@ -7,6 +7,7 @@ import { ChakraProvider, Container, Heading } from "@chakra-ui/react";
 import CanvasBoard from "./snake/CanvasBoard.tsx";
 import '../assets/css/Stage.css';
 import { useEffect, useState } from 'react';
+import ScoreCard from './snake/ScoreCard.tsx';
 
 
 const Stage = () => {
@@ -108,9 +109,8 @@ const Stage = () => {
                     /> */}
 
                     <Provider store={store}>
-                        {/* <ChakraProvider> */}
+                        <ScoreCard />
                         <CanvasBoard width={w} height={h} />
-                        {/* </ChakraProvider> */}
                     </Provider>
 
 

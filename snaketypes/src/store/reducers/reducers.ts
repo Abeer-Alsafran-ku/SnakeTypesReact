@@ -1,4 +1,4 @@
-import { RIGHT, LEFT, UP, DOWN, SET_DISALLOWED_DIRECTION } from "../actions/actions.ts";
+import { RIGHT, LEFT, UP, DOWN, SET_DISALLOWED_DIRECTION, INCREASE_SNAKE, INCREMENT_SCORE } from "../actions/actions.ts";
 
 export interface ISnakeCoord {
     x: number;
@@ -8,6 +8,7 @@ export interface ISnakeCoord {
 export interface IGlobalState {
     snake: ISnakeCoord[] | [];            // Defines the snake location
     disallowedDirection: string;          // e.g. If the snake is moving "RIGHT" it cannot go "LEFT"
+    score: number;
 };
 
 const globalState: IGlobalState = {
@@ -19,7 +20,9 @@ const globalState: IGlobalState = {
     { x: 520, y: 300 },
     { x: 500, y: 300 },
   ],
-  disallowedDirection: "" // refer to event listener in CanvasBoard: initially is empty to identify gamestart
+  
+  disallowedDirection: "", // refer to event listener in CanvasBoard: initially is empty to identify gamestart
+  score: 0,
 };
 
 // the reducer takes an action and returns the new state
@@ -47,6 +50,25 @@ const gameReducer = (state = globalState, action) => {
           
         case SET_DISALLOWED_DIRECTION:
           return { ...state, disallowedDirection: action.payload };
+
+          case INCREASE_SNAKE:
+            const snakeLen = state.snake.length;
+            return {
+              ...state,
+              snake: [
+                ...state.snake,
+                {
+                  x: state.snake[snakeLen - 1].x - 20,
+                  y: state.snake[snakeLen - 1].y - 20,
+                },
+              ],
+            };
+            
+            case INCREMENT_SCORE:
+              return {
+                ...state,
+                score: state.score + 1,
+              };
 
         default:
             return state;

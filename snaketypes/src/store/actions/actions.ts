@@ -8,7 +8,7 @@ export const LEFT = "LEFT";
 export const UP = "UP";
 export const DOWN = "DOWN";
 
-// actions that are dispatched from CanvasBoard component (then sent to the saga middleware)
+// actions that are dispatched from CanvasBoard component and caught by saga middleware
 export const MOVE_RIGHT = "MOVE_RIGHT";
 export const MOVE_LEFT = "MOVE_LEFT";
 export const MOVE_UP = "MOVE_UP";
@@ -16,6 +16,10 @@ export const MOVE_DOWN = "MOVE_DOWN";
 
 // this is action is used to set the disallowed direction
 export const SET_DISALLOWED_DIRECTION = "SET_DISALLOWED_DIRECTION";
+
+// dispatched when fruit is eaten
+export const INCREASE_SNAKE = "INCREASE_SNAKE";
+export const INCREMENT_SCORE = "INCREMENT_SCORE";
 
 /* an action creator: makes a move based on `move`, `dx` and `dy` are the deltas
  * They tell the Redux store by how much we should increase/decrease
@@ -30,6 +34,14 @@ export const setDisAllowedDirection = (direction: string) => ({
     type: SET_DISALLOWED_DIRECTION,
     payload: direction
 });
+
+export const increaseSnake = () => ({
+    type: INCREASE_SNAKE
+  });
+
+  export const scoreUpdates = (type: string) => ({
+    type
+  });
 
 const sagaMiddleware = createSagaMiddleware();
 
