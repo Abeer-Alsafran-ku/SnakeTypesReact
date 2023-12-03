@@ -1,10 +1,10 @@
 import { useRef, useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { IObjectBody, clearBoard, drawObject, generateRandomPosition } from "../utils/utils.tsx";
+import { IObjectBody, clearBoard, drawObject, generateRandomPosition, hasSnakeCollided, isSnakeOutOfBound } from "../utils/utils.tsx";
 import { IGlobalState, } from "../../store/reducers/reducers.ts";
 import React from "react";
 
-import { makeMove, MOVE_RIGHT, MOVE_LEFT, MOVE_UP, MOVE_DOWN, increaseSnake, INCREMENT_SCORE, scoreUpdates } from "../../store/actions/actions.ts";
+import { makeMove, MOVE_RIGHT, MOVE_LEFT, MOVE_UP, MOVE_DOWN, increaseSnake, INCREMENT_SCORE, scoreUpdates, stopGame } from "../../store/actions/actions.ts";
 
 import '../../assets/css/CanvasBoard.css'
 import { delay } from "redux-saga/effects";
@@ -23,6 +23,8 @@ const CanvasBoard = ({ height, width }: ICanvasBoard) => {
   const [isConsumed, setIsConsumed] = useState<boolean>(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [context, setContext] = useState<CanvasRenderingContext2D | null>(null);
+  const [gameEnded, setGameEnded] = useState<boolean>(false);
+
 
   // retrieve states from redux store
   const snake1 = useSelector((state: IGlobalState) => state.snake);
@@ -37,22 +39,22 @@ const CanvasBoard = ({ height, width }: ICanvasBoard) => {
   const moveSnake = useCallback(
     (dx = 0, dy = 0, ds: string) => {
       if (dx > 0 && dy === 0 && ds !== "RIGHT") {
-        console.log('dispatching: ', makeMove(dx, dy, MOVE_RIGHT))
+        // console.log('dispatching: ', makeMove(dx, dy, MOVE_RIGHT))
         dispatch(makeMove(dx, dy, MOVE_RIGHT));
       }
 
       if (dx < 0 && dy === 0 && ds !== "LEFT") {
-        console.log('dispatching: ', makeMove(dx, dy, MOVE_LEFT))
+        // console.log('dispatching: ', makeMove(dx, dy, MOVE_LEFT))
         dispatch(makeMove(dx, dy, MOVE_LEFT));
       }
 
       if (dx === 0 && dy < 0 && ds !== "UP") {
-        console.log('dispatching: ', makeMove(dx, dy, MOVE_UP))
+        // console.log('dispatching: ', makeMove(dx, dy, MOVE_UP))
         dispatch(makeMove(dx, dy, MOVE_UP));
       }
 
       if (dx === 0 && dy > 0 && ds !== "DOWN") {
-        console.log('dispatching: ', makeMove(dx, dy, MOVE_DOWN))
+        // console.log('dispatching: ', makeMove(dx, dy, MOVE_DOWN))
         dispatch(makeMove(dx, dy, MOVE_DOWN));
       }
     },
@@ -104,13 +106,18 @@ const CanvasBoard = ({ height, width }: ICanvasBoard) => {
      //When the object is consumed
      if (snake1[0].x === pos?.x && snake1[0].y === pos?.y) {
       setIsConsumed(true);
-      console.log('munch')
+    }
+
+    // if snake collides or out of bound
+    if( hasSnakeCollided(snake1, snake1[0]) || isSnakeOutOfBound(snake1, width, height)){
+        setGameEnded(true);
+        dispatch(stopGame());
+        window.removeEventListener('keypress', handleKeyEvents);
     }
 
   }, [context, pos, snake1, height, width, dispatch, handleKeyEvents]);
 
   useEffect(() => {
-    console.log('useEffect')
     //Generate new object
     if (isConsumed) {
       const posi = generateRandomPosition(width - 20, height - 20);

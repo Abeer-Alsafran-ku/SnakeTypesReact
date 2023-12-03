@@ -1,5 +1,5 @@
 import { CallEffect, delay, put, PutEffect, takeLatest } from "redux-saga/effects";
-import { DOWN, LEFT, MOVE_DOWN, MOVE_LEFT, MOVE_RIGHT, MOVE_UP, RIGHT, setDisAllowedDirection, UP } from "../actions/actions.ts";
+import { DOWN, LEFT, MOVE_DOWN, MOVE_LEFT, MOVE_RIGHT, MOVE_UP, RIGHT, setDisAllowedDirection, STOP_GAME, UP } from "../actions/actions.ts";
 import { ISnakeCoord } from "../reducers/reducers.ts";
 
 // a worker saga that dispatches the actions to the Redux store
@@ -9,9 +9,11 @@ import { ISnakeCoord } from "../reducers/reducers.ts";
     | PutEffect<{ type: string; payload: string }>
     | CallEffect<true>
   >{
-
-    // keep executing the last direction i.e keep moving right if player decides to go right
-    while (true) {
+    if(params.type==STOP_GAME){
+      console.log('saga got STOP_GAME')
+    }
+    // keep dispatching the last direction while no collision occurs
+    while (params.type !== STOP_GAME) {
 
       // dispatch the required action
       yield put({
@@ -44,7 +46,7 @@ import { ISnakeCoord } from "../reducers/reducers.ts";
   // a watcher saga that watches for any action that is being dispatched
   function* watcherSagas() {
     yield takeLatest(
-      [MOVE_RIGHT, MOVE_LEFT, MOVE_UP, MOVE_DOWN],
+      [MOVE_RIGHT, MOVE_LEFT, MOVE_UP, MOVE_DOWN, STOP_GAME],
       moveSaga
     );
   }

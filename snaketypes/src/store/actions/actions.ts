@@ -21,6 +21,10 @@ export const SET_DISALLOWED_DIRECTION = "SET_DISALLOWED_DIRECTION";
 export const INCREASE_SNAKE = "INCREASE_SNAKE";
 export const INCREMENT_SCORE = "INCREMENT_SCORE";
 
+// to deal with collision
+export const STOP_GAME = "STOP_GAME";
+
+
 /* an action creator: makes a move based on `move`, `dx` and `dy` are the deltas
  * They tell the Redux store by how much we should increase/decrease
  * the coordinates of each snake block to move the snake in the given direction
@@ -41,6 +45,10 @@ export const increaseSnake = () => ({
 
   export const scoreUpdates = (type: string) => ({
     type
+  });
+
+  export const stopGame = () => ({
+    type: STOP_GAME
   });
 
 const sagaMiddleware = createSagaMiddleware();

@@ -99,7 +99,7 @@ const Stage = () => {
     return ( 
 
                 <div className='Stage'>
-                    {/* <div className='word'></div> Gets filled with span elements for each character */}
+                    {/* <div className='word'></div> */}
                     {/* <input
                         className='user-input'
                         type='text'
