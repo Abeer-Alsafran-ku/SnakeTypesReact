@@ -4,10 +4,11 @@ import { IObjectBody, clearBoard, drawObject, generateRandomPosition, hasSnakeCo
 import { IGlobalState, } from "../../store/reducers/reducers.ts";
 import React from "react";
 
-import { makeMove, MOVE_RIGHT, MOVE_LEFT, MOVE_UP, MOVE_DOWN, increaseSnake, INCREMENT_SCORE, scoreUpdates, stopGame } from "../../store/actions/actions.ts";
+import { makeMove, MOVE_RIGHT, MOVE_LEFT, MOVE_UP, MOVE_DOWN, increaseSnake, INCREMENT_SCORE, scoreUpdates, stopGame, RESET_SCORE, resetGame } from "../../store/actions/actions.ts";
 
 import '../../assets/css/CanvasBoard.css'
 import { delay } from "redux-saga/effects";
+import Instruction from "./Instructions.tsx";
 
 export interface ICanvasBoard {
   height: number;
@@ -27,10 +28,10 @@ const CanvasBoard = ({ height, width }: ICanvasBoard) => {
 
 
   // retrieve states from redux store
-  const snake1 = useSelector((state: IGlobalState) => state.snake);
+  const snake = useSelector((state: IGlobalState) => state.snake);
   const disallowedDirection = useSelector((state: IGlobalState) => state.disallowedDirection);
 
-  // console.log('snake: ', snake1);
+  // console.log('snake: ', snake);
   const [pos, setPos] = useState<IObjectBody>(
     generateRandomPosition(width - 20, height - 20)
   );
@@ -100,22 +101,22 @@ const CanvasBoard = ({ height, width }: ICanvasBoard) => {
   useEffect(() => {
     setContext(canvasRef.current && canvasRef.current.getContext("2d")); //store in state variable
     clearBoard(context);
-    drawObject(context, snake1, "#3E5D81");
+    drawObject(context, snake, "#3E5D81");
     drawObject(context, [pos], "#676FA3");
 
      //When the object is consumed
-     if (snake1[0].x === pos?.x && snake1[0].y === pos?.y) {
+     if (snake[0].x === pos?.x && snake[0].y === pos?.y) {
       setIsConsumed(true);
     }
 
     // if snake collides or out of bound
-    if( hasSnakeCollided(snake1, snake1[0]) || isSnakeOutOfBound(snake1, width, height)){
+    if( hasSnakeCollided(snake, snake[0]) || isSnakeOutOfBound(snake, width, height)){
         setGameEnded(true);
         dispatch(stopGame());
         window.removeEventListener('keypress', handleKeyEvents);
     }
 
-  }, [context, pos, snake1, height, width, dispatch, handleKeyEvents]);
+  }, [context, pos, snake, height, width, dispatch, handleKeyEvents]);
 
   useEffect(() => {
     //Generate new object
@@ -140,7 +141,21 @@ const CanvasBoard = ({ height, width }: ICanvasBoard) => {
       window.removeEventListener("keypress", handleKeyEvents);
     };
   }, [disallowedDirection, handleKeyEvents]); 
-  
+
+  const resetBoard = useCallback(() => {
+    window.removeEventListener("keypress", handleKeyEvents);
+    
+    dispatch(resetGame());                        // stops dispatching actions infinitly within saga
+    dispatch(scoreUpdates(RESET_SCORE));          // resets score
+    clearBoard(context);                          // clears board
+    drawObject(context, snake, "#91C483");        // draws snake again
+
+    // set position of food again
+    let posi = generateRandomPosition(width - 20, height - 20);
+    setPos(posi);
+    drawObject(context, [posi], "#676FA3");
+    window.addEventListener("keypress", handleKeyEvents);
+  }, [context, dispatch, handleKeyEvents, height, snake, width]);
 
   return (
     <div className="CanvasBoard">
@@ -183,7 +198,6 @@ const CanvasBoard = ({ height, width }: ICanvasBoard) => {
         </div>
 
       </div>
-
       <canvas
         ref={canvasRef}
         style={{
@@ -192,6 +206,9 @@ const CanvasBoard = ({ height, width }: ICanvasBoard) => {
         height={height}
         width={width}
       />
+      <Instruction resetBoard={resetBoard} />
+      <button onClick={resetBoard}>RESET</button>
+
     </div>
   );
 };

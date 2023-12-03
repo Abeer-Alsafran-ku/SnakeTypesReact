@@ -24,6 +24,9 @@ export const INCREMENT_SCORE = "INCREMENT_SCORE";
 // to deal with collision
 export const STOP_GAME = "STOP_GAME";
 
+export const RESET = "RESET";
+export const RESET_SCORE = "RESET_SCORE";
+
 
 /* an action creator: makes a move based on `move`, `dx` and `dy` are the deltas
  * They tell the Redux store by how much we should increase/decrease
@@ -43,12 +46,17 @@ export const increaseSnake = () => ({
     type: INCREASE_SNAKE
   });
 
-  export const scoreUpdates = (type: string) => ({
+// takes either INCREMENT_SCORE or RESET_SCORE
+export const scoreUpdates = (type: string) => ({
     type
   });
 
   export const stopGame = () => ({
     type: STOP_GAME
+  });
+
+  export const resetGame = () => ({
+    type: RESET
   });
 
 const sagaMiddleware = createSagaMiddleware();
