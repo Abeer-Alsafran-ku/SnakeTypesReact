@@ -7,6 +7,7 @@ import Side from "./Side";
 import MiniProfile from "./MiniProfile";
 import Profile from "./Profile";
 import Register from "./Register";
+import MiniChart from "./MiniChart";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 // import { useState } from 'react';
@@ -18,6 +19,7 @@ function App() {
         <Header />
         <Side />
         <MiniProfile />
+        <MiniChart />
         <Routes>
           {/* Home Page */}
           <Route exact path="/" Component={Home}></Route>

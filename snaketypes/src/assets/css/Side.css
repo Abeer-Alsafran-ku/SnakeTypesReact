@@ -196,7 +196,7 @@ h5,
   }
 }
 #sidebar .custom-menu .btn.btn-primary {
-  background: #2f89fc;
+  background: #32373d;
   border-color: transparent;
   position: relative;
   color: #000;
@@ -206,17 +206,19 @@ h5,
 #sidebar .custom-menu .btn.btn-primary:after,
 #sidebar .custom-menu .btn.btn-primary:before {
   position: absolute;
-  top: 2px;
-  left: 0;
+  top: -9px;
+  left: 1px;
   right: 0;
   bottom: 0;
   font-family: "FontAwesome";
+  font-size: xx-large;
   color: #fff;
+  content: "\2261";
 }
-#sidebar .custom-menu .btn.btn-primary:after {
-  content: "\f054";
-  left: 2px;
-}
+/* #sidebar .custom-menu .btn.btn-primary:after { */
+  /* content: "\2261"; */
+  /* left: 2px; */
+/* } */
 
 .bg-wrap {
   width: 100%;
