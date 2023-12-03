@@ -27,19 +27,19 @@ const Stage = () => {
       }
 
     // the first time the page loads, pick a word and fill wordDiv with characters
-    useEffect(()=>{
-        let sync_word = get_random(words)
-        console.log('word: ', sync_word)
+    // useEffect(()=>{
+    //     let sync_word = get_random(words)
+    //     console.log('word: ', sync_word)
 
-        setWord(sync_word);
-        let wordDiv = document.getElementsByClassName('word')[0];
-        let html = "";
-        for(let c = 0; c < sync_word.length; c++){
-            html += `<span class="word-char" style="font-size: xxx-large; color: gray; letter-spacing: 3px;">${sync_word[c]}</span>\n`
-        }
+    //     setWord(sync_word);
+    //     let wordDiv = document.getElementsByClassName('word')[0];
+    //     let html = "";
+    //     for(let c = 0; c < sync_word.length; c++){
+    //         html += `<span class="word-char" style="font-size: xxx-large; color: gray; letter-spacing: 3px;">${sync_word[c]}</span>\n`
+    //     }
 
-        wordDiv.innerHTML = html
-    }, [] )
+    //     wordDiv.innerHTML = html
+    // }, [] )
 
     // colors the wordDiv until the last correct character (this keeps track of what is being typed)
     function correctColoring(wordDiv_arr, tIdx){
@@ -85,7 +85,6 @@ const Stage = () => {
         if(lastPressed == word[trackIdx]){
             if(trackIdx + 1 == wordDiv_arr.length){
                 console.log('word completed')
-                console.log('Dispatching: "MOVE_UP"')
             }
             setTrackIdx(trackIdx + 1);
             correctColoring(wordDiv_arr, trackIdx + 1);
@@ -99,14 +98,14 @@ const Stage = () => {
     return ( 
 
                 <div className='Stage'>
-                    <div className='word'></div> {/* Gets filled with span elements for each character */}
-                    <input
+                    {/* <div className='word'></div> Gets filled with span elements for each character */}
+                    {/* <input
                         className='user-input'
                         type='text'
                         onChange={trackWord}
                         onBlur={()=>{document.getElementsByClassName('user-input')[0].focus()}} 
                         autoFocus
-                    />
+                    /> */}
 
                     <Provider store={store}>
                         {/* <ChakraProvider> */}

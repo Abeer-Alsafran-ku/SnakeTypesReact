@@ -1,8 +1,11 @@
-import { useRef, useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useRef, useState, useEffect, useCallback } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { IObjectBody, clearBoard, drawObject, generateRandomPosition } from "../utils/utils.tsx";
-import { IGlobalState } from "../../store/reducers/reducers.ts";
+import { IGlobalState, } from "../../store/reducers/reducers.ts";
 import React from "react";
+
+import { makeMove, MOVE_RIGHT, MOVE_LEFT, MOVE_UP, MOVE_DOWN } from "../../store/actions/actions.ts";
+
 import '../../assets/css/CanvasBoard.css'
 
 export interface ICanvasBoard {
@@ -13,22 +16,100 @@ export interface ICanvasBoard {
 
 const CanvasBoard = ({ height, width }: ICanvasBoard) => {
 
+  // used to dispatch actions to reducer
+  const dispatch = useDispatch();
+
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [context, setContext] = useState<CanvasRenderingContext2D | null>(null);
 
+  // retrieve states from redux store
   const snake1 = useSelector((state: IGlobalState) => state.snake);
+  const disallowedDirection = useSelector((state: IGlobalState) => state.disallowedDirection);
+
   // console.log('snake: ', snake1);
   const [pos, setPos] = useState<IObjectBody>(
     generateRandomPosition(width - 20, height - 20)
   );
+ 
 
+  const moveSnake = useCallback(
+    (dx = 0, dy = 0, ds: string) => {
+      if (dx > 0 && dy === 0 && ds !== "RIGHT") {
+        console.log('dispatching: ', makeMove(dx, dy, MOVE_RIGHT))
+        dispatch(makeMove(dx, dy, MOVE_RIGHT));
+      }
+
+      if (dx < 0 && dy === 0 && ds !== "LEFT") {
+        console.log('dispatching: ', makeMove(dx, dy, MOVE_LEFT))
+        dispatch(makeMove(dx, dy, MOVE_LEFT));
+      }
+
+      if (dx === 0 && dy < 0 && ds !== "UP") {
+        console.log('dispatching: ', makeMove(dx, dy, MOVE_UP))
+        dispatch(makeMove(dx, dy, MOVE_UP));
+      }
+
+      if (dx === 0 && dy > 0 && ds !== "DOWN") {
+        console.log('dispatching: ', makeMove(dx, dy, MOVE_DOWN))
+        dispatch(makeMove(dx, dy, MOVE_DOWN));
+      }
+    },
+    [dispatch]
+  );
+
+  const handleKeyEvents = useCallback(
+    (event: KeyboardEvent) => {
+      
+      // if the game started i.e `disallowedDirection` is set then allow moving in other directions
+      if (disallowedDirection) {
+        switch (event.key) {
+          case "w":
+            moveSnake(0, -20, disallowedDirection);
+            break;
+          case "s":
+            moveSnake(0, 20, disallowedDirection);
+            break;
+          case "a":
+            moveSnake(-20, 0, disallowedDirection);
+            break;
+          case "d":
+            event.preventDefault();
+            moveSnake(20, 0, disallowedDirection);
+            break;
+        }
+      } else {
+
+        // game starts when player goes right
+        if (
+          disallowedDirection !== "LEFT" &&
+          disallowedDirection !== "UP" &&
+          disallowedDirection !== "DOWN" &&
+          event.key === "d"
+        )
+          moveSnake(20, 0, disallowedDirection);
+      }
+    },
+    [disallowedDirection, moveSnake]
+  );
+
+  //Draw on canvas each time
   useEffect(() => {
-    //Draw on canvas each time
     setContext(canvasRef.current && canvasRef.current.getContext("2d")); //store in state variable
     clearBoard(context);
     drawObject(context, snake1, "#3E5D81");
     drawObject(context, [pos], "#676FA3");
-  }, [context]);
+  }, [context, pos, snake1, height, width, dispatch, handleKeyEvents]);
+
+
+  // adds keypress listener when the component mounts and removes it when the component unmounts
+  useEffect(() => {
+    window.addEventListener("keypress", handleKeyEvents);
+
+    return () => {
+      window.removeEventListener("keypress", handleKeyEvents);
+    };
+  }, [disallowedDirection, handleKeyEvents]); 
+  
 
   return (
     <div className="CanvasBoard">
