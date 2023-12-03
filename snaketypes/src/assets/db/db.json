@@ -1,14 +1,14 @@
 {
   "users": [
     {
-      "userid": 1,
+      "id": 1,
       "username": "John Doe",
       "password": "abc123@",
       "avg_wpm": 60,
       "img": "../assets/db/john-doe.jfif"
     },
     {
-      "userid": 2,
+      "id": 2,
       "username": "jjj kkk",
       "password": "a1@",
       "avg_wpm": 100,
