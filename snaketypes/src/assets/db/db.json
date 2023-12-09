@@ -1,14 +1,12 @@
 {
   "users": [
     {
-      "id": 1,
       "username": "John Doe",
       "password": "abc123@",
       "avg_wpm": 60,
       "img": "../assets/db/john-doe.jfif"
     },
     {
-      "id": 2,
       "username": "jjj kkk",
       "password": "a1@",
       "avg_wpm": 100,
@@ -17,44 +15,32 @@
   ],
   "words": [
     {
-      "wordId": 1,
       "wordText": "apple",
-      "difficultyLevel": 1
+      "difficulty": 1
     },
     {
-      "wordId": 2,
-      "wordText": "banana",
-      "difficultyLevel": 1
-    },
-    {
-      "wordId": 3,
       "wordText": "mango",
-      "difficultyLevel": 1
+      "difficulty": 1
     },
     {
-      "wordId": 4,
       "wordText": "serpent",
-      "difficultyLevel": 2
+      "difficulty": 2
     },
     {
-      "wordId": 5,
       "wordText": "explore",
-      "difficultyLevel": 2
+      "difficulty": 2
     },
     {
-      "wordId": 6,
       "wordText": "velocity",
-      "difficultyLevel": 3
+      "difficulty": 3
     },
     {
-      "wordId": 7,
       "wordText": "algorithm",
-      "difficultyLevel": 3
+      "difficulty": 3
     },
     {
-      "wordId": 8,
       "wordText": "adventure",
-      "difficultyLevel": 3
+      "difficulty": 3
     }
   ]
 }

@@ -1,4 +1,4 @@
-import { RIGHT, LEFT, UP, DOWN, SET_DISALLOWED_DIRECTION, INCREASE_SNAKE, INCREMENT_SCORE, STOP_GAME, RESET_SCORE, RESET } from "../actions/actions.ts";
+import { RIGHT, LEFT, UP, DOWN, SET_DISALLOWED_DIRECTION, INCREASE_SNAKE, INCREMENT_SCORE, STOP_GAME, RESET_SCORE, RESET, SET_WORDS } from "../actions/actions.ts";
 
 export interface ISnakeCoord {
     x: number;
@@ -9,6 +9,10 @@ export interface IGlobalState {
     snake: ISnakeCoord[] | [];            // Defines the snake location
     disallowedDirection: string;          // e.g. If the snake is moving "RIGHT" it cannot go "LEFT"
     score: number;
+    upWord: string;
+    downWord: string;
+    rightWord: string;
+    leftWord: string;
 };
 
 const globalState: IGlobalState = {
@@ -23,6 +27,10 @@ const globalState: IGlobalState = {
   
   disallowedDirection: "", // refer to event listener in CanvasBoard: initially is empty to identify gamestart
   score: 0,
+  upWord: 'up-init',
+  downWord: 'down-init',
+  rightWord: 'right-init',
+  leftWord: 'left-init',
 };
 
 // the reducer takes an action and returns the new state
@@ -84,6 +92,16 @@ const gameReducer = (state = globalState, action) => {
               { x: 500, y: 300 },
             ],
             disallowedDirection: ''
+          }
+
+        case SET_WORDS:
+          
+          return {
+            ...state,
+            upWord: action.payload[0],
+            downWord: action.payload[1],
+            rightWord: action.payload[2],
+            leftWord: action.payload[3],
           }
 
         default:

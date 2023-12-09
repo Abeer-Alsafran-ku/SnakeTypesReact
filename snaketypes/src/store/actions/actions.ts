@@ -27,6 +27,9 @@ export const STOP_GAME = "STOP_GAME";
 export const RESET = "RESET";
 export const RESET_SCORE = "RESET_SCORE";
 
+// words functionalities
+export const SET_WORDS = "SET_WORDS"
+
 
 /* an action creator: makes a move based on `move`, `dx` and `dy` are the deltas
  * They tell the Redux store by how much we should increase/decrease
@@ -58,6 +61,11 @@ export const scoreUpdates = (type: string) => ({
   export const resetGame = () => ({
     type: RESET
   });
+
+  export const setWords = (words: object) => ({
+    type: SET_WORDS,
+    payload: words
+  })
 
 const sagaMiddleware = createSagaMiddleware();
 

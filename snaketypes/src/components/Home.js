@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
 import "../assets/css/Home.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MiniProfile from "./MiniProfile";
+import fetchObj from "../assets/js/utils";
 
 const Home = () => {
+
   return (
     <>
       <MiniProfile />

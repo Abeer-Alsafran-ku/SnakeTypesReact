@@ -20,7 +20,7 @@ const Stage = () => {
 
     const [word, setWord] = useState('word');       // the word that should be typed
     const [trackIdx, setTrackIdx] = useState(0);    // keeps track of the last correct character the user typed
-
+    
     // returns a random element from a list, this will be removed as later on we can request a random word from database
     function get_random (list) {
         let idx = Math.floor((Math.random()*list.length));
@@ -28,19 +28,19 @@ const Stage = () => {
       }
 
     // the first time the page loads, pick a word and fill wordDiv with characters
-    // useEffect(()=>{
-    //     let sync_word = get_random(words)
-    //     console.log('word: ', sync_word)
+    useEffect(()=>{
+        let sync_word = get_random(words)
+        console.log('word: ', sync_word)
 
-    //     setWord(sync_word);
-    //     let wordDiv = document.getElementsByClassName('word')[0];
-    //     let html = "";
-    //     for(let c = 0; c < sync_word.length; c++){
-    //         html += `<span class="word-char" style="font-size: xxx-large; color: gray; letter-spacing: 3px;">${sync_word[c]}</span>\n`
-    //     }
+        setWord(sync_word);
+        let wordDiv = document.getElementsByClassName('word')[0];
+        let html = "";
+        for(let c = 0; c < sync_word.length; c++){
+            html += `<span class="word-char" style="font-size: xxx-large; color: gray; letter-spacing: 3px;">${sync_word[c]}</span>\n`
+        }
 
-    //     wordDiv.innerHTML = html
-    // }, [] )
+        wordDiv.innerHTML = html
+    }, [] )
 
     // colors the wordDiv until the last correct character (this keeps track of what is being typed)
     function correctColoring(wordDiv_arr, tIdx){
@@ -99,14 +99,14 @@ const Stage = () => {
     return ( 
 
                 <div className='Stage'>
-                    {/* <div className='word'></div> */}
-                    {/* <input
+                    <div className='word'></div>
+                    <input
                         className='user-input'
                         type='text'
                         onChange={trackWord}
                         onBlur={()=>{document.getElementsByClassName('user-input')[0].focus()}} 
                         autoFocus
-                    /> */}
+                    />
 
                     <Provider store={store}>
                         <ScoreCard />
