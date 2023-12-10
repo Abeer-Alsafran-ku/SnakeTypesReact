@@ -12,7 +12,7 @@ import { ISnakeCoord } from "../reducers/reducers.ts";
 
     // keep dispatching the last direction, unless STOP_GAME or RESET are dispached
     while (params.type !== STOP_GAME && params.type !== RESET) {
-
+      
       // dispatch the required action
       yield put({
         type: params.type.split("_")[1],

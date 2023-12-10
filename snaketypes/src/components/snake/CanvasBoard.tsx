@@ -2,7 +2,6 @@ import { useRef, useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { IObjectBody, clearBoard, drawObject, generateRandomPosition, hasSnakeCollided, isSnakeOutOfBound } from "../utils/utils.tsx";
 import { IGlobalState, } from "../../store/reducers/reducers.ts";
-import { fetchObj, getRandomWords } from "../../assets/js/utils.js";
 import React from "react";
 
 import { makeMove, MOVE_RIGHT, MOVE_LEFT, MOVE_UP, MOVE_DOWN, increaseSnake, INCREMENT_SCORE, scoreUpdates, stopGame, RESET_SCORE, resetGame, setWords } from "../../store/actions/actions.ts";
@@ -21,7 +20,7 @@ const CanvasBoard = ({ height, width }: ICanvasBoard) => {
 
   // used to dispatch actions to reducer
   const dispatch = useDispatch();
-
+  const [defaultControls, setDefaultControls] = useState<boolean>(false)
   const [isConsumed, setIsConsumed] = useState<boolean>(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [context, setContext] = useState<CanvasRenderingContext2D | null>(null);
@@ -35,14 +34,6 @@ const CanvasBoard = ({ height, width }: ICanvasBoard) => {
   const [pos, setPos] = useState<IObjectBody>(
     generateRandomPosition(width - 20, height - 20)
   );
-
-  const wordsInit = useCallback(async ()=>{
-
-    let wordsArray = await fetchObj('words');
-    
-    dispatch(setWords(getRandomWords(wordsArray, 4)));
-
-  }, [dispatch])
 
   const upWord = useSelector((state: IGlobalState) => state.upWord);
   const downWord = useSelector((state: IGlobalState) => state.downWord);
@@ -74,41 +65,41 @@ const CanvasBoard = ({ height, width }: ICanvasBoard) => {
     [dispatch]
   );
 
-  useEffect(()=>{
-    wordsInit();
-  }, [])
-
   const handleKeyEvents = useCallback(
     (event: KeyboardEvent) => {
 
-      // if the game started i.e `disallowedDirection` is set then allow moving in other directions
-      if (disallowedDirection) {
-        switch (event.key) {
-          case "w":
-            moveSnake(0, -20, disallowedDirection);
-            break;
-          case "s":
-            moveSnake(0, 20, disallowedDirection);
-            break;
-          case "a":
-            moveSnake(-20, 0, disallowedDirection);
-            break;
-          case "d":
-            event.preventDefault();
-            moveSnake(20, 0, disallowedDirection);
-            break;
-        }
-      } else {
+      if(defaultControls){
 
-        // game starts when player goes right
-        if (
-          disallowedDirection !== "LEFT" &&
-          disallowedDirection !== "UP" &&
-          disallowedDirection !== "DOWN" &&
-          event.key === "d"
-        )
-          moveSnake(20, 0, disallowedDirection);
-      }
+        // if the game started i.e `disallowedDirection` is set then allow moving in other directions
+        if (disallowedDirection) {
+          switch (event.key) {
+            
+            case "w":   // up
+              moveSnake(0, -20, disallowedDirection);
+              break;
+            case "s":   // down
+              moveSnake(0, 20, disallowedDirection);
+              break;
+            case "a":   // left
+              moveSnake(-20, 0, disallowedDirection);
+              break;
+            case "d":   // right
+              event.preventDefault();
+              moveSnake(20, 0, disallowedDirection);
+              break;
+          }
+        } else {
+
+          // game starts when player goes right
+          if (
+            disallowedDirection !== "LEFT" &&
+            disallowedDirection !== "UP" &&
+            disallowedDirection !== "DOWN" &&
+            event.key === "d"
+          )
+            moveSnake(20, 0, disallowedDirection);
+        }
+      }// end defcontrols
     },
     [disallowedDirection, moveSnake]
   );
