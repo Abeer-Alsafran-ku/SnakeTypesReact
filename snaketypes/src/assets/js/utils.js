@@ -24,3 +24,32 @@ export async function fetchObj(obj, url='http://localhost:5000', options={}){
         return null;
     })
 }
+
+// colors the wordDiv until the last correct character (this keeps track of what is being typed)
+export function correctColoring(wordDiv_arr, tIdx){
+    
+    let charElement = null;
+
+    // black color up to tIdx (the last correct character)
+    for(let c = 0; c < tIdx; c++){
+        charElement = wordDiv_arr[c];            
+        charElement.style.color = "black";
+    }
+
+    // the rest should remain gray (we are using a loop to avoid black-gray-black patterns)
+    for(let c = tIdx; c < wordDiv_arr.length; c++){
+        charElement = wordDiv_arr[c];
+        charElement.style.color = "gray";
+    }
+} // end correctColoring
+
+// return a spanned format of a word
+export function spanWord(word){
+    if(!word){return '';}
+    
+    let html = "";
+    for(let c = 0; c < word.length; c++){
+        html += `<span class="word-char" style="font-size: xxx-large; color: gray; letter-spacing: 3px;">${word[c]}</span>\n`
+    }
+    return html;
+}

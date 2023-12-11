@@ -4,7 +4,7 @@ import '../assets/css/Stage.css';
 import { useEffect, useState, useCallback } from 'react';
 import ScoreCard from './snake/ScoreCard.tsx';
 import { useDispatch } from 'react-redux';
-import { fetchObj, getRandomWords } from "../assets/js/utils.js";
+import { fetchObj, getRandomWords, correctColoring, spanWord } from "../assets/js/utils.js";
 import { makeMove, MOVE_RIGHT, MOVE_LEFT, MOVE_UP, MOVE_DOWN, increaseSnake, INCREMENT_SCORE, scoreUpdates, stopGame, RESET_SCORE, resetGame, setWords } from "../store/actions/actions.ts";
 
 
@@ -16,6 +16,22 @@ const Stage = () => {
     const [wordsDirection, setWordsDirection] = useState([])
     const disallowedDirection = useSelector((state: IGlobalState) => state.disallowedDirection);
 
+    const upWord = useSelector((state: IGlobalState) => state.upWord);
+    const downWord = useSelector((state: IGlobalState) => state.downWord);
+    const rightWord = useSelector((state: IGlobalState) => state.rightWord);
+    const leftWord = useSelector((state: IGlobalState) => state.leftWord);
+
+    // later will be pulled from database
+    const words = ['apple', 'peach', 'cherry', 'grape', 'coconut', 'mango', 'orange', 'avocado', 'pomegranate', 'strawberry'];
+    // const words = ['orange']
+
+    const [word, setWord] = useState('word');       // the word that should be typed
+    const [trackIdx, setTrackIdx] = useState(0);    // keeps track of the last correct character the user typed
+
+    const [upTrackIdx, setUpTrackIdx] = useState(0);    // keeps track of the last correct character the user typed
+    const [downTrackIdx, setDownTrackIdx] = useState(0);    // keeps track of the last correct character the user typed
+    const [rightTrackIdx, setRightTrackIdx] = useState(0);    // keeps track of the last correct character the user typed
+    const [leftTrackIdx, setLeftTrackIdx] = useState(0);    // keeps track of the last correct character the user typed
 
     const moveSnake = useCallback(
         (dx = 0, dy = 0, ds = '') => {
@@ -53,48 +69,34 @@ const Stage = () => {
         setWord(sync_word);
 
         setWordsDirection([
-            {text: wordsArray_filtered[0], direction: ''},
+            {text: wordsArray_filtered[0], direction: 'up'},
+            {text: wordsArray_filtered[1], direction: 'down'},
+            {text: wordsArray_filtered[2], direction: 'right'},
+            {text: wordsArray_filtered[3], direction: 'left'},
         ])
-        console.log('filtered: ', wordsArray_filtered)
-        // setting wordDiv
-        let wordDiv = document.getElementsByClassName('word')[0];
-        let html = "";
-        for(let c = 0; c < sync_word.length; c++){
-            html += `<span class="word-char" style="font-size: xxx-large; color: gray; letter-spacing: 3px;">${sync_word[c]}</span>\n`
-        }
 
-        wordDiv.innerHTML = html        
+        // console.log('filtered: ', setWords(wordsArray_filtered))
       }, [dispatch])
-
-    // later will be pulled from database
-    const words = ['apple', 'peach', 'cherry', 'grape', 'coconut', 'mango', 'orange', 'avocado', 'pomegranate', 'strawberry'];
-    // const words = ['orange']
-
-    const [word, setWord] = useState('word');       // the word that should be typed
-    const [trackIdx, setTrackIdx] = useState(0);    // keeps track of the last correct character the user typed
 
     // the first time the page loads, pick a word and fill wordDiv with characters
     useEffect(()=>{
         wordsInit();
     }, [] )
 
-    // colors the wordDiv until the last correct character (this keeps track of what is being typed)
-    function correctColoring(wordDiv_arr, tIdx){
-        
-        let charElement = null;
+    useEffect(()=>{
+         // setting wordDiv
+         let wordDivs = document.getElementsByClassName('word');
+        //  wordDivs[0].innerHTML = spanWord(upWord);
+        //  wordDivs[1].innerHTML = spanWord(downWord);
+        //  wordDivs[2].innerHTML = spanWord(rightWord);
+        //  wordDivs[3].innerHTML = spanWord(leftWord);
+         wordDivs[0].innerHTML = spanWord(upWord.wordText);
+         wordDivs[1].innerHTML = spanWord(downWord.wordText);
+         wordDivs[2].innerHTML = spanWord(rightWord.wordText);
+         wordDivs[3].innerHTML = spanWord(leftWord.wordText);
+    }, [upWord])
 
-        // black color up to tIdx (the last correct character)
-        for(let c = 0; c < tIdx; c++){
-            charElement = wordDiv_arr[c];            
-            charElement.style.color = "black";
-        }
-
-        // the rest should remain gray (we are using a loop to avoid black-gray-black patterns)
-        for(let c = tIdx; c < wordDiv_arr.length; c++){
-            charElement = wordDiv_arr[c];
-            charElement.style.color = "gray";
-        }
-    } // end correctColoring
+   
 
     // called whenever the user inputs a character or removes one
     function trackWord(){
@@ -117,10 +119,30 @@ const Stage = () => {
         }
 
         // if correct character was typed increment the index of the (last correct character)
+        /*
+         * 
+         */
         if(lastPressed == word[trackIdx]){
             if(trackIdx + 1 == wordDiv_arr.length){
                 console.log('word completed: ', word)
-                moveSnake(20, 0, disallowedDirection);
+
+                switch(word){
+                    case upWord.wordText:
+                        moveSnake(0, -20, disallowedDirection);
+                        break;
+                    case downWord.wordText:
+                        moveSnake(0, 20, disallowedDirection);
+                        break;
+                    case rightWord.wordText:
+                        moveSnake(20, 0, disallowedDirection);
+                        break;
+                    case leftWord.wordText:
+                        moveSnake(-20, 0, disallowedDirection);
+                        break;
+
+                    default:
+                        console.log('word completed default case');
+                }
 
             }
             setTrackIdx(trackIdx + 1);
@@ -135,7 +157,14 @@ const Stage = () => {
     return ( 
 
                 <div className='Stage'>
-                    <div className='word'></div>
+                    <ScoreCard />
+
+                    <div className="wordDivs">
+                        <div className='word' id="upWord"></div>
+                        <div className='word' id="downWord"></div>
+                        <div className='word' id="rightWord"></div>
+                        <div className='word' id="leftWord"></div>
+                    </div>
                     <input
                         className='user-input'
                         type='text'
@@ -143,8 +172,6 @@ const Stage = () => {
                         onBlur={()=>{document.getElementsByClassName('user-input')[0].focus()}} 
                         autoFocus
                     />
-
-                    <ScoreCard />
                     <CanvasBoard width={w} height={h} />
 
                 </div>

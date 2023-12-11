@@ -39,6 +39,7 @@ const CanvasBoard = ({ height, width }: ICanvasBoard) => {
   const downWord = useSelector((state: IGlobalState) => state.downWord);
   const rightWord = useSelector((state: IGlobalState) => state.rightWord);
   const leftWord = useSelector((state: IGlobalState) => state.leftWord);
+  // console.log(`up0: ${upWord.wordText}, down1: ${downWord.wordText}, right2: ${rightWord.wordText}, left3: ${leftWord.wordText}`)
 
   const moveSnake = useCallback(
     (dx = 0, dy = 0, ds: string) => {

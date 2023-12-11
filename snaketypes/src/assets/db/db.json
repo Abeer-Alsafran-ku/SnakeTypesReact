@@ -13,34 +13,47 @@
       "img": "../assets/db/john-doe.jfif"
     }
   ],
+  
   "words": [
-    {
-      "wordText": "apple",
-      "difficulty": 1
-    },
-    {
-      "wordText": "mango",
-      "difficulty": 1
-    },
-    {
-      "wordText": "serpent",
-      "difficulty": 2
-    },
-    {
-      "wordText": "explore",
-      "difficulty": 2
-    },
-    {
-      "wordText": "velocity",
-      "difficulty": 3
-    },
-    {
-      "wordText": "algorithm",
-      "difficulty": 3
-    },
-    {
-      "wordText": "adventure",
-      "difficulty": 3
-    }
-  ]
-}
+      {
+        "wordText": "apple",
+        "difficulty": 1
+      },
+      {
+        "wordText": "peach",
+        "difficulty": 1
+      },
+      {
+        "wordText": "cherry",
+        "difficulty": 1
+      },
+      {
+        "wordText": "grape",
+        "difficulty": 1
+      },
+      {
+        "wordText": "coconut",
+        "difficulty": 1
+      },
+      {
+        "wordText": "mango",
+        "difficulty": 1
+      },
+      {
+        "wordText": "orange",
+        "difficulty": 2
+      },
+      {
+        "wordText": "avocado",
+        "difficulty": 2
+      },
+      {
+        "wordText": "pomegranate",
+        "difficulty": 3
+      },
+      {
+        "wordText": "strawberry",
+        "difficulty": 3
+      }
+    ]
+  }
