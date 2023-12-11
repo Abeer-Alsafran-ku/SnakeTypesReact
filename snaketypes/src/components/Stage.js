@@ -4,7 +4,7 @@ import '../assets/css/Stage.css';
 import { useEffect, useState, useCallback } from 'react';
 import ScoreCard from './snake/ScoreCard.tsx';
 import { useDispatch } from 'react-redux';
-import { fetchObj, getRandomWords, correctColoring, spanWord } from "../assets/js/utils.js";
+import { fetchObj, getRandomWords, correctColoring, spanWord, filterChildNodes } from "../assets/js/utils.js";
 import { makeMove, MOVE_RIGHT, MOVE_LEFT, MOVE_UP, MOVE_DOWN, increaseSnake, INCREMENT_SCORE, scoreUpdates, stopGame, RESET_SCORE, resetGame, setWords } from "../store/actions/actions.ts";
 
 
@@ -102,55 +102,101 @@ const Stage = () => {
     function trackWord(){
         let currentValue = document.getElementsByClassName('user-input')[0];        // user input
         let wordDiv_arr = document.getElementsByClassName('word')[0].childNodes;    // wordDiv
+        let upDivs = document.getElementById('upWord').childNodes;
+        let downDivs = document.getElementById('downWord').childNodes;
+        let rightDivs = document.getElementById('rightWord').childNodes;
+        let leftDivs = document.getElementById('leftWord').childNodes;
         let lastPressed = currentValue.value[currentValue.value.length - 1];        // last character the user typed
 
         // filter excess elements, childNodes returns unnecessary elements so they have to be removed
-        let temp = [];
-        for(let c = 0; c < word.length; c++){
-            temp.push(wordDiv_arr[c*2])
-        }
-        wordDiv_arr = temp;
+        upDivs = filterChildNodes(upDivs, upWord.wordText);
+        downDivs = filterChildNodes(downDivs, downWord.wordText);
+        rightDivs = filterChildNodes(rightDivs, rightWord.wordText);
+        leftDivs = filterChildNodes(leftDivs, leftWord.wordText);
 
         // handle when <backspace> is used
         if(currentValue.value.length + 1 == trackIdx){
             correctColoring(wordDiv_arr, trackIdx - 1);
             setTrackIdx(trackIdx - 1);
+            console.log('backspace caught')
             return;
         }
 
         // if correct character was typed increment the index of the (last correct character)
         /*
+         * modify if condition to compare character with all words (directions)
          * 
          */
-        if(lastPressed == word[trackIdx]){
-            if(trackIdx + 1 == wordDiv_arr.length){
-                console.log('word completed: ', word)
 
-                switch(word){
-                    case upWord.wordText:
-                        moveSnake(0, -20, disallowedDirection);
-                        break;
-                    case downWord.wordText:
-                        moveSnake(0, 20, disallowedDirection);
-                        break;
-                    case rightWord.wordText:
-                        moveSnake(20, 0, disallowedDirection);
-                        break;
-                    case leftWord.wordText:
-                        moveSnake(-20, 0, disallowedDirection);
-                        break;
+        /*********
+         * 
+         * Before coloring, compare current trackIdx, if it is equal to maximum trackIdx then apply coloring
+         * 
+         * ************/
 
-                    default:
-                        console.log('word completed default case');
-                }
-
-            }
-            setTrackIdx(trackIdx + 1);
-            correctColoring(wordDiv_arr, trackIdx + 1);
+        if(lastPressed == upWord.wordText[upTrackIdx]){
+            setUpTrackIdx(upTrackIdx + 1);
+            correctColoring(upDivs, upTrackIdx + 1);
+            console.log('up match');
         }
-        else{
-            currentValue.value = currentValue.value.slice(0, -1);   // remove the incorrect character
+
+        if(lastPressed == downWord.wordText[upTrackIdx]){
+            setDownTrackIdx(downTrackIdx + 1);
+            correctColoring(downDivs, downTrackIdx + 1);
+            console.log('down match')
         }
+
+        if(lastPressed == rightWord.wordText[rightTrackIdx]){
+            setRightTrackIdx(rightTrackIdx + 1);
+            correctColoring(rightDivs, rightTrackIdx + 1);
+            console.log('right match')
+        }
+        if(lastPressed == leftWord.wordText[leftTrackIdx]){
+            setLeftTrackIdx(leftTrackIdx + 1);
+            correctColoring(leftDivs, leftTrackIdx + 1);
+            console.log('left match')
+        }
+
+        // default:
+        //         console.log('pressed key doesnt have a match')
+        //         currentValue.value = currentValue.value.slice(0, -1);   // remove the incorrect character
+        // }
+
+
+
+/************ OLD ***********/
+
+// if(lastPressed == word[trackIdx]){
+            
+        //     // if the word is completed
+        //     if(trackIdx + 1 == wordDiv_arr.length){
+        //         console.log('word completed: ', word)
+
+        //         switch(word){
+        //             case upWord.wordText:
+        //                 moveSnake(0, -20, disallowedDirection);
+        //                 break;
+        //             case downWord.wordText:
+        //                 moveSnake(0, 20, disallowedDirection);
+        //                 break;
+        //             case rightWord.wordText:
+        //                 moveSnake(20, 0, disallowedDirection);
+        //                 break;
+        //             case leftWord.wordText:
+        //                 moveSnake(-20, 0, disallowedDirection);
+        //                 break;
+
+        //             default:
+        //                 console.log('word completed default case');
+        //         } // end switch
+        // //     } // end if word completed
+        
+        //     setTrackIdx(trackIdx + 1);
+        //     correctColoring(wordDiv_arr, trackIdx + 1);
+        // }
+        // else{
+        //     currentValue.value = currentValue.value.slice(0, -1);   // remove the incorrect character
+        // }
 
     }
 

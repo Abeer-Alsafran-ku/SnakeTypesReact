@@ -26,18 +26,17 @@ export async function fetchObj(obj, url='http://localhost:5000', options={}){
 }
 
 // colors the wordDiv until the last correct character (this keeps track of what is being typed)
-export function correctColoring(wordDiv_arr, tIdx){
+export function correctColoring(wordDiv_arr, trackIdx){
     
     let charElement = null;
-
     // black color up to tIdx (the last correct character)
-    for(let c = 0; c < tIdx; c++){
+    for(let c = 0; c < trackIdx; c++){
         charElement = wordDiv_arr[c];            
         charElement.style.color = "black";
     }
 
     // the rest should remain gray (we are using a loop to avoid black-gray-black patterns)
-    for(let c = tIdx; c < wordDiv_arr.length; c++){
+    for(let c = trackIdx; c < wordDiv_arr.length; c++){
         charElement = wordDiv_arr[c];
         charElement.style.color = "gray";
     }
@@ -46,10 +45,19 @@ export function correctColoring(wordDiv_arr, tIdx){
 // return a spanned format of a word
 export function spanWord(word){
     if(!word){return '';}
-    
+
     let html = "";
     for(let c = 0; c < word.length; c++){
         html += `<span class="word-char" style="font-size: xxx-large; color: gray; letter-spacing: 3px;">${word[c]}</span>\n`
     }
     return html;
+}
+
+// filter excess elements, childNodes returns unnecessary `#text` elements so they have to be removed
+export function filterChildNodes(wordDiv, word){
+    let temp = [];
+    for(let c = 0; c < word.length; c++){
+        temp.push(wordDiv[c*2])
+    }
+    return temp;
 }
