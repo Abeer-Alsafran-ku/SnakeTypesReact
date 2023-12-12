@@ -40,10 +40,6 @@ const Login = () => {
       });
   };
 
-  const handleLogout = () => {
-    setUser(null);
-    console.log("You have logged out");
-  };
 
   if (user) {
     return (
