@@ -1,0 +1,61 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "John Doe",
+      "password": "abc123@",
+      "avg_wpm": 60,
+      "img": "https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+    },
+    {
+      "id": 2,
+      "username": "emy",
+      "password": "a1@",
+      "avg_wpm": 100,
+      "img": "https://mdbcdn.b-cdn.net/img/new/avatars/4.webp"
+    }
+  ],
+
+  "words": [
+    {
+      "wordText": "apple",
+      "difficulty": 1
+    },
+    {
+      "wordText": "peach",
+      "difficulty": 1
+    },
+    {
+      "wordText": "cherry",
+      "difficulty": 1
+    },
+    {
+      "wordText": "grape",
+      "difficulty": 1
+    },
+    {
+      "wordText": "coconut",
+      "difficulty": 1
+    },
+    {
+      "wordText": "mango",
+      "difficulty": 1
+    },
+    {
+      "wordText": "orange",
+      "difficulty": 2
+    },
+    {
+      "wordText": "avocado",
+      "difficulty": 2
+    },
+    {
+      "wordText": "pomegranate",
+      "difficulty": 3
+    },
+    {
+      "wordText": "strawberry",
+      "difficulty": 3
+    }
+  ]
+}
