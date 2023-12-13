@@ -14,7 +14,7 @@
     }
   ],
   
-  "words": [
+  "algorithmTesting": [
       {
         "wordText": "appricot",
         "difficulty": 1
@@ -33,7 +33,7 @@
       }
     ],
     
-  "wordsOriginal": [
+  "words": [
     {
       "wordText": "apple",
       "difficulty": 1
