@@ -1,10 +1,5 @@
 
 
-export function getRandomWords(wordsArray, numberOfWords, without = []) {
-    const shuffledWords = wordsArray.sort(() => Math.random() - 0.5);
-    return shuffledWords.slice(0, numberOfWords);
-  }
-
 // generic function that handles fetching.
 export async function fetchObj(obj, url='http://localhost:5000', options={}){
     
@@ -25,8 +20,16 @@ export async function fetchObj(obj, url='http://localhost:5000', options={}){
     })
 }
 
+
+export function getRandomWords(wordsArray, numberOfWords, without = []) {
+    const shuffledWords = wordsArray.sort(() => Math.random() - 0.5);
+    return shuffledWords.slice(0, numberOfWords);
+  }
+
 // colors the wordDiv until the last correct character (this keeps track of what is being typed)
 export function correctColoring(wordDiv_arr, trackIdx){
+
+    if(trackIdx < 0){return}
     
     let charElement = null;
     // black color up to tIdx (the last correct character)
@@ -61,3 +64,30 @@ export function filterChildNodes(wordDiv, word){
     }
     return temp;
 }
+
+export function getMaxTrackIdx(arr) {
+    if (arr.length === 0) {
+      return undefined; // Return undefined for an empty array
+    }
+  
+    let max = arr[0]; // Assume first element is the maximum
+  
+    for (let c = 1; c < arr.length; c++) {
+      if (arr[c] > max) {
+        max = arr[c]; // Update max if a larger element is found
+      }
+    }
+  
+    return max; // Return the maximum value
+  }
+  
+  export function matchedWords(prefix, wordDivPair) {
+    let matched = [];
+    for(let c = 0; c < wordDivPair.length; c++){
+        if(wordDivPair[c].word.startsWith(prefix)){
+            matched.push(wordDivPair[c])
+        }
+    }
+    return matched;
+  }
+  

@@ -4,7 +4,7 @@ import '../assets/css/Stage.css';
 import { useEffect, useState, useCallback } from 'react';
 import ScoreCard from './snake/ScoreCard.tsx';
 import { useDispatch } from 'react-redux';
-import { fetchObj, getRandomWords, correctColoring, spanWord, filterChildNodes } from "../assets/js/utils.js";
+import { fetchObj, getRandomWords, correctColoring, spanWord, filterChildNodes, getMaxTrackIdx, matchedWords } from "../assets/js/utils.js";
 import { makeMove, MOVE_RIGHT, MOVE_LEFT, MOVE_UP, MOVE_DOWN, increaseSnake, INCREMENT_SCORE, scoreUpdates, stopGame, RESET_SCORE, resetGame, setWords } from "../store/actions/actions.ts";
 
 
@@ -15,7 +15,7 @@ const Stage = () => {
     const dispatch = useDispatch();
     const [wordsDirection, setWordsDirection] = useState([])
     const disallowedDirection = useSelector((state: IGlobalState) => state.disallowedDirection);
-
+    const log = console.log;
     const upWord = useSelector((state: IGlobalState) => state.upWord);
     const downWord = useSelector((state: IGlobalState) => state.downWord);
     const rightWord = useSelector((state: IGlobalState) => state.rightWord);
@@ -26,12 +26,13 @@ const Stage = () => {
     // const words = ['orange']
 
     const [word, setWord] = useState('word');       // the word that should be typed
-    const [trackIdx, setTrackIdx] = useState(0);    // keeps track of the last correct character the user typed
+    // const [trackIdx, setTrackIdx] = useState(0);    // keeps track of the last correct character the user typed
 
     const [upTrackIdx, setUpTrackIdx] = useState(0);    // keeps track of the last correct character the user typed
     const [downTrackIdx, setDownTrackIdx] = useState(0);    // keeps track of the last correct character the user typed
     const [rightTrackIdx, setRightTrackIdx] = useState(0);    // keeps track of the last correct character the user typed
     const [leftTrackIdx, setLeftTrackIdx] = useState(0);    // keeps track of the last correct character the user typed
+    const [bspace, setBspace] = useState(0);    // keeps track of the last correct character the user typed
 
     const moveSnake = useCallback(
         (dx = 0, dy = 0, ds = '') => {
@@ -96,12 +97,53 @@ const Stage = () => {
          wordDivs[3].innerHTML = spanWord(leftWord.wordText);
     }, [upWord])
 
+    useEffect(()=>{
+        // log('backspace caught')
+        let maxTrackIdx = getMaxTrackIdx([upTrackIdx, downTrackIdx, rightTrackIdx, leftTrackIdx]);
+        
+        // console.log('maxTrackIdx: ', [upTrackIdx, downTrackIdx, rightTrackIdx, leftTrackIdx])
+        // if(upTrackIdx == maxTrackIdx){log('reducing u');setUpTrackIdx(upTrackIdx - 1)}
+        // if(downTrackIdx == maxTrackIdx)log('reducing d');{setDownTrackIdx(downTrackIdx - 1)}
+        // if(rightTrackIdx == maxTrackIdx){log('reducing r');setRightTrackIdx(rightTrackIdx - 1)}
+        // if(leftTrackIdx == maxTrackIdx){log('reducing l');setLeftTrackIdx(leftTrackIdx - 1)}
+
+    }, [bspace])
+
+    useEffect(()=>{
+        document.getElementsByClassName('user-input')[0].addEventListener('keydown', function(event) {
+            const key = event.key;
+            if (key === "Backspace") {
+                // log('a')
+            }
+        });
+
+        let upDivs = document.getElementById('upWord').childNodes;
+        let downDivs = document.getElementById('downWord').childNodes;
+        let rightDivs = document.getElementById('rightWord').childNodes;
+        let leftDivs = document.getElementById('leftWord').childNodes;
+        
+        if(upWord.wordText == undefined){return}
+
+        // filter excess elements, childNodes returns unnecessary elements so they have to be removed
+        upDivs = filterChildNodes(upDivs, upWord.wordText);
+        downDivs = filterChildNodes(downDivs, downWord.wordText);
+        rightDivs = filterChildNodes(rightDivs, rightWord.wordText);
+        leftDivs = filterChildNodes(leftDivs, leftWord.wordText);
+        
+        correctColoring(upDivs, upTrackIdx);
+        correctColoring(downDivs, downTrackIdx);
+        correctColoring(rightDivs, rightTrackIdx);
+        correctColoring(leftDivs, leftTrackIdx);
+
+
+    }, [upTrackIdx, downTrackIdx, rightTrackIdx, leftTrackIdx] )
+
    
 
     // called whenever the user inputs a character or removes one
     function trackWord(){
         let currentValue = document.getElementsByClassName('user-input')[0];        // user input
-        let wordDiv_arr = document.getElementsByClassName('word')[0].childNodes;    // wordDiv
+        // let wordDiv_arr = document.getElementsByClassName('word')[0].childNodes;    // wordDiv
         let upDivs = document.getElementById('upWord').childNodes;
         let downDivs = document.getElementById('downWord').childNodes;
         let rightDivs = document.getElementById('rightWord').childNodes;
@@ -114,13 +156,99 @@ const Stage = () => {
         rightDivs = filterChildNodes(rightDivs, rightWord.wordText);
         leftDivs = filterChildNodes(leftDivs, leftWord.wordText);
 
-        // handle when <backspace> is used
-        if(currentValue.value.length + 1 == trackIdx){
-            correctColoring(wordDiv_arr, trackIdx - 1);
-            setTrackIdx(trackIdx - 1);
-            console.log('backspace caught')
+        console.log('current: ', currentValue.value)
+
+        let wordsFull = [
+            {word: upWord.wordText, wordDiv: upDivs, trackIdx: upTrackIdx, setTrackIdx: setUpTrackIdx},
+            {word: downWord.wordText, wordDiv: downDivs, trackIdx: downTrackIdx, setTrackIdx: setDownTrackIdx},
+            {word: rightWord.wordText, wordDiv: rightDivs, trackIdx: rightTrackIdx, setTrackIdx: setRightTrackIdx},
+            {word: leftWord.wordText, wordDiv: leftDivs, trackIdx: leftTrackIdx, setTrackIdx: setLeftTrackIdx}
+        ];
+
+        let matched = matchedWords(currentValue.value, wordsFull);
+        if(matched.length == 0){
+            console.log('no matching');
+            currentValue.value = currentValue.value.slice(0, -1);
             return;
         }
+        console.log('matched: ', matched)
+        log(`value.length: ${currentValue.value.length}`)
+
+        let maxTrackIdx = getMaxTrackIdx([upTrackIdx, downTrackIdx, rightTrackIdx, leftTrackIdx]);
+        
+        console.log('maxTrackIdx: ', [upTrackIdx, downTrackIdx, rightTrackIdx, leftTrackIdx])
+        if(maxTrackIdx == currentValue.value.length + 1){
+            log('backspace caught')
+            if(upTrackIdx == maxTrackIdx){
+                log('reducing u');
+                if(upTrackIdx - 1 >= 0){setUpTrackIdx(upTrackIdx - 1);}
+
+            }
+            if(downTrackIdx == maxTrackIdx){
+                log('reducing d');
+                if(downTrackIdx - 1 >= 0){setDownTrackIdx(downTrackIdx - 1);}
+            }
+            if(rightTrackIdx == maxTrackIdx){
+                log('reducing r');
+                if(rightTrackIdx - 1 >= 0){setRightTrackIdx(rightTrackIdx - 1)};
+            }
+            if(leftTrackIdx == maxTrackIdx){
+                log('reducing l');
+                if(leftTrackIdx - 1 >= 0){setLeftTrackIdx(leftTrackIdx - 1)};
+            }
+     
+        }
+        
+        // handle when <backspace> is used
+        // if(currentValue.value.length + 1 == matched[0].trackIdx){   // which idx doesn't matter if the value is matched
+        //     console.log(`backspace caught`)
+            
+        //     for(let c = 0; c < wordsFull.length; c++){
+        //         // console.log(`wordsFull[c]: ${wordsFull[c].word}, is in matched: ${matched.includes(wordsFull[c])}`)
+        //         if(matched.includes(wordsFull[c])){
+        //             log(`will color ${wordsFull[c].word} #chars: ${wordsFull[c].trackIdx - 1}`)
+        //             // correctColoring(wordsFull[c].wordDiv, wordsFull[c].trackIdx - 1);
+        //             wordsFull[c].setTrackIdx(wordsFull[c].trackIdx - 1);
+        //         }
+        //         else{
+        //             // correctColoring()
+        //         }
+        //     }
+        //     // correctColoring(wordDiv_arr, trackIdx - 1);
+        //     // setTrackIdx(trackIdx - 1);
+        //     return;
+        // }
+
+
+        // color each matched word
+        for(let c = 0; c < matched.length; c++){
+            log(`${matched[c].word} trackIdx ${matched[c].trackIdx + 1}`)
+            // correctColoring(matched[c].wordDiv, matched[c].trackIdx + 1)
+            
+            if(matched[c].trackIdx + 1 <= currentValue.value.length){
+                matched[c].setTrackIdx(matched[c].trackIdx + 1)
+            }
+            else{
+            log(`protected ${matched[c].word} trackIdx ${matched[c].trackIdx} from exceeding current length ${currentValue.value.length}`)
+            }
+        }
+        
+
+        
+
+        // handle when <backspace> is used
+        // if(currentValue.value.length + 1 == maxTrackIdx){
+        //     correctColoring(upDivs, upTrackIdx - 1);
+        //     correctColoring(downDivs, downTrackIdx - 1);
+        //     correctColoring(rightDivs, rightTrackIdx - 1);
+        //     correctColoring(leftDivs, leftTrackIdx - 1);
+
+        //     setTrackIdx(trackIdx - 1);
+
+        //     console.log('backspace caught')
+        //     return;
+        // }
+
 
         // if correct character was typed increment the index of the (last correct character)
         /*
@@ -132,30 +260,31 @@ const Stage = () => {
          * 
          * Before coloring, compare current trackIdx, if it is equal to maximum trackIdx then apply coloring
          * 
+         * 
          * ************/
 
-        if(lastPressed == upWord.wordText[upTrackIdx]){
-            setUpTrackIdx(upTrackIdx + 1);
-            correctColoring(upDivs, upTrackIdx + 1);
-            console.log('up match');
-        }
 
-        if(lastPressed == downWord.wordText[upTrackIdx]){
-            setDownTrackIdx(downTrackIdx + 1);
-            correctColoring(downDivs, downTrackIdx + 1);
-            console.log('down match')
-        }
+        // if(lastPressed == upWord.wordText[upTrackIdx]){
+        //     setUpTrackIdx(upTrackIdx + 1);
+        //     console.log('up match');
+        // }
 
-        if(lastPressed == rightWord.wordText[rightTrackIdx]){
-            setRightTrackIdx(rightTrackIdx + 1);
-            correctColoring(rightDivs, rightTrackIdx + 1);
-            console.log('right match')
-        }
-        if(lastPressed == leftWord.wordText[leftTrackIdx]){
-            setLeftTrackIdx(leftTrackIdx + 1);
-            correctColoring(leftDivs, leftTrackIdx + 1);
-            console.log('left match')
-        }
+        // if(lastPressed == downWord.wordText[upTrackIdx]){
+        //     setDownTrackIdx(downTrackIdx + 1);
+        //     // correctColoring(downDivs, downTrackIdx + 1);
+        //     console.log('down match')
+        // }
+
+        // if(lastPressed == rightWord.wordText[rightTrackIdx]){
+        //     setRightTrackIdx(rightTrackIdx + 1);
+        //     // correctColoring(rightDivs, rightTrackIdx + 1);
+        //     console.log('right match')
+        // }
+        // if(lastPressed == leftWord.wordText[leftTrackIdx]){
+        //     setLeftTrackIdx(leftTrackIdx + 1);
+        //     // correctColoring(leftDivs, leftTrackIdx + 1);
+        //     console.log('left match')
+        // }
 
         // default:
         //         console.log('pressed key doesnt have a match')
