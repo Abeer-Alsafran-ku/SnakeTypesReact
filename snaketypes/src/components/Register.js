@@ -52,6 +52,9 @@ const Register = () => {
           password,
           avg_wpm: 0,
           img: defaultIcon,
+          gamesPlayed: 0,
+          highestWPM: 0,
+          monthlyStats: Array(12).fill({ month: "0", wpm: 0 }),
         }),
       })
         .then((res) => {

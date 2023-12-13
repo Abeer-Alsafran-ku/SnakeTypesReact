@@ -1,6 +1,7 @@
 {
   "users": [
     {
+      "id": 1,
       "username": "John Doe",
       "password": "abc123@",
       "avg_wpm": 60,
@@ -23,6 +24,7 @@
       ]
     },
     {
+      "id": 2,
       "username": "emy",
       "password": "a1@",
       "avg_wpm": 100,
