@@ -4,35 +4,67 @@
       "username": "John Doe",
       "password": "abc123@",
       "avg_wpm": 60,
-      "img": "../assets/db/john-doe.jfif"
+      "img": "https://mdbcdn.b-cdn.net/img/new/avatars/2.webp",
+      "gamesPlayed": 10,
+      "highestWPM": 60,
+      "monthlyStats": [
+        { "month": "January", "wpm": 80 },
+        { "month": "February", "wpm": 85 },
+        { "month": "March", "wpm": 75 },
+        { "month": "April", "wpm": 90 },
+        { "month": "May", "wpm": 88 },
+        { "month": "June", "wpm": 92 },
+        { "month": "July", "wpm": 78 },
+        { "month": "August", "wpm": 85 },
+        { "month": "September", "wpm": 87 },
+        { "month": "October", "wpm": 95 },
+        { "month": "November", "wpm": 89 },
+        { "month": "December", "wpm": 93 }
+      ]
     },
     {
-      "username": "jjj kkk",
+      "username": "emy",
       "password": "a1@",
       "avg_wpm": 100,
-      "img": "../assets/db/john-doe.jfif"
+      "img": "https://mdbcdn.b-cdn.net/img/new/avatars/4.webp",
+      "gamesPlayed": 15,
+      "highestWPM": 77,
+      "monthlyStats": [
+        { "month": "January", "wpm": 80 },
+        { "month": "February", "wpm": 85 },
+        { "month": "March", "wpm": 90 },
+        { "month": "April", "wpm": 78 },
+        { "month": "May", "wpm": 88 },
+        { "month": "June", "wpm": 92 },
+        { "month": "July", "wpm": 87 },
+        { "month": "August", "wpm": 95 },
+        { "month": "September", "wpm": 82 },
+        { "month": "October", "wpm": 89 },
+        { "month": "November", "wpm": 91 },
+        { "month": "December", "wpm": 86 }
+      ]
     }
   ],
-  
+
   "words": [
-      {
-        "wordText": "appricot",
-        "difficulty": 1
-      },
-      {
-        "wordText": "avocado",
-        "difficulty": 2
-      },
-      {
-        "wordText": "pomegranate",
-        "difficulty": 3
-      },
-      {
-        "wordText": "apple",
-        "difficulty": 3
-      }
-    ],
-    
+    {
+      "wordText": "appricot",
+      "difficulty": 1
+    },
+    {
+      "wordText": "avocado",
+      "difficulty": 2
+    },
+    {
+      "wordText": "pomegranate",
+      "difficulty": 3
+    },
+    {
+      "wordText": "apple",
+      "difficulty": 3
+    }
+  ],
+
   "wordsOriginal": [
     {
       "wordText": "apple",
@@ -75,4 +107,4 @@
       "difficulty": 3
     }
   ]
-  }
+}
