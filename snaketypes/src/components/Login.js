@@ -1,9 +1,11 @@
 import "../assets/css/Login.css";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import { UserContext } from "./App";
 
 const Login = () => {
-  //login state variables
+  const { user, setUser } = useContext(UserContext);
+
   const [loginUsername, setLoginUsername] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [error, setError] = useState(null);
@@ -11,7 +13,7 @@ const Login = () => {
   const handleLogin = (event) => {
     event.preventDefault();
 
-    fetch("http://localhost:3800/users")
+    fetch("http://localhost:5000/users")
       .then((res) => {
         if (!res.ok) {
           throw Error("couldn't fetch user");
@@ -20,14 +22,15 @@ const Login = () => {
         return res.json();
       })
       .then((users) => {
-        const user = users.find(
+        const foundUser = users.find(
           (user) =>
             user.username === loginUsername && user.password === loginPassword
         );
 
-        if (user) {
+        if (foundUser) {
           console.log("You have an account");
           setError(null);
+          setUser(foundUser);
         } else {
           throw Error("username or password are incorrect");
         }
@@ -37,6 +40,23 @@ const Login = () => {
         setError(err.message);
       });
   };
+
+  const handleLogout = () => {
+    setUser(null);
+    console.log("You have logged out");
+  };
+
+  if (user) {
+    return (
+      <div>
+        <h2>You are logged in!</h2>
+        <p>Welcome, {user.username}!</p>
+        <br />
+        <br />
+        <button onClick={handleLogout}>Logout</button>
+      </div>
+    );
+  }
 
   return (
     <div>
