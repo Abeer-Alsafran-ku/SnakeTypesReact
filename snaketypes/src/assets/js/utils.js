@@ -1,6 +1,5 @@
 
-
-// generic function that handles fetching.
+// general function that handles fetching.
 export async function fetchObj(obj, url='http://localhost:5000', options={}){
     
     return fetch(url + `/${obj}`, options )
@@ -20,7 +19,7 @@ export async function fetchObj(obj, url='http://localhost:5000', options={}){
     })
 }
 
-
+// returns randomized array given specific size
 export function getRandomWords(wordsArray, numberOfWords, without = []) {
     const shuffledWords = wordsArray.sort(() => Math.random() - 0.5);
     return shuffledWords.slice(0, numberOfWords);
@@ -28,17 +27,17 @@ export function getRandomWords(wordsArray, numberOfWords, without = []) {
 
 // colors the wordDiv until the last correct character (this keeps track of what is being typed)
 export function correctColoring(wordDiv_arr, trackIdx){
-
-    if(trackIdx < 0){return}
-    
     let charElement = null;
-    // black color up to tIdx (the last correct character)
+    
+    if(trackIdx < 0){return}
+
+    // black coloring up to trackIdx (the last correct character)
     for(let c = 0; c < trackIdx; c++){
         charElement = wordDiv_arr[c];            
         charElement.style.color = "black";
     }
 
-    // the rest should remain gray (we are using a loop to avoid black-gray-black patterns)
+    // gray coloring the rest; which should remain gray (we are using a loop to avoid black-gray-black patterns)
     for(let c = trackIdx; c < wordDiv_arr.length; c++){
         charElement = wordDiv_arr[c];
         charElement.style.color = "gray";
@@ -47,7 +46,7 @@ export function correctColoring(wordDiv_arr, trackIdx){
 
 // return a spanned format of a word
 export function spanWord(word){
-    if(!word){return '';}
+    if(!word){return ''}
 
     let html = "";
     for(let c = 0; c < word.length; c++){
@@ -56,7 +55,7 @@ export function spanWord(word){
     return html;
 }
 
-// filter excess elements, childNodes returns unnecessary `#text` elements so they have to be removed
+// filter excess elements, since childNodes returns unnecessary `#text` elements so they have to be removed
 export function filterChildNodes(wordDiv, word){
     let temp = [];
     for(let c = 0; c < word.length; c++){
@@ -65,22 +64,24 @@ export function filterChildNodes(wordDiv, word){
     return temp;
 }
 
+// returns maximum trackIdx
 export function getMaxTrackIdx(arr) {
     if (arr.length === 0) {
-      return undefined; // Return undefined for an empty array
+      return undefined;
     }
   
-    let max = arr[0]; // Assume first element is the maximum
+    let max = arr[0];
   
-    for (let c = 1; c < arr.length; c++) {
+    for(let c = 1; c < arr.length; c++) {
       if (arr[c] > max) {
-        max = arr[c]; // Update max if a larger element is found
+        max = arr[c];
       }
     }
   
-    return max; // Return the maximum value
+    return max;
   }
   
+  // returns words that prefix with the user's input
   export function matchedWords(prefix, wordDivPair) {
     let matched = [];
     for(let c = 0; c < wordDivPair.length; c++){

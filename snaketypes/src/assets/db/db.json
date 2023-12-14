@@ -47,27 +47,27 @@
       ]
     }
   ],
-
+  
+  "algorithmTesting": [
+      {
+        "wordText": "appricot",
+        "difficulty": 1
+      },
+      {
+        "wordText": "avocado",
+        "difficulty": 2
+      },
+      {
+        "wordText": "pomegranate",
+        "difficulty": 3
+      },
+      {
+        "wordText": "apple",
+        "difficulty": 3
+      }
+    ],
+    
   "words": [
-    {
-      "wordText": "appricot",
-      "difficulty": 1
-    },
-    {
-      "wordText": "avocado",
-      "difficulty": 2
-    },
-    {
-      "wordText": "pomegranate",
-      "difficulty": 3
-    },
-    {
-      "wordText": "apple",
-      "difficulty": 3
-    }
-  ],
-
-  "wordsOriginal": [
     {
       "wordText": "apple",
       "difficulty": 1
