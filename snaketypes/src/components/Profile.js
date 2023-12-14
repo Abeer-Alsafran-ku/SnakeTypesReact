@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import Card from "react-bootstrap/Card";
 import MiniChart from "./MiniChart";
 import MiniProfile from "./MiniProfile";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { UserContext } from "./App";
+import defaultIcon from "../assets/img/profile-icon.jpg";
+import { Link } from "react-router-dom";
+import Dashboard from "./Dashboard";
 
 const Profile = () => {
+  const { user } = useContext(UserContext);
+
   return (
     <>
       <div
@@ -20,31 +26,28 @@ const Profile = () => {
       >
         <img
           id="user-avatar"
-          src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+          src={user ? user.img : defaultIcon}
           className="rounded-circle"
           alt="Avatar"
           style={{ display: "flex", maxWidth: "7%" }}
         />
-        <Card.Title>{"Username"}</Card.Title>
+        <Card.Title>{user ? user.username : "Guest"}</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">
-          {"average 50 wpm"}
+          {user ? `Average ${user.avg_wpm} wpm` : ""}{" "}
         </Card.Subtitle>
-        <Card.Text>
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
-        </Card.Text>
+        {user ? (
+          <Card.Text>Nice to see you again {user.username} ^_^</Card.Text>
+        ) : (
+          <Card.Text>
+            Some quick example text to build on the card title and make up the
+            bulk of the card's content.
+          </Card.Text>
+        )}
+        {/*{user ? <MiniChart /> : ""}*/}
         <Card.Link href="#">View Stats</Card.Link>
-        <Card.Link href="#">Edit Profile</Card.Link>
-      </div>
-
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <MiniChart />
+        <Card.Link href="#">View Profile</Card.Link>
+        {/*<Link to="/dashboard">Dashboard!</Link>*/}
+        <Dashboard />
       </div>
     </>
   );

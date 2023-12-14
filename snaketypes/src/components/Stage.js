@@ -6,7 +6,7 @@ import ScoreCard from './snake/ScoreCard.tsx';
 import { useDispatch } from 'react-redux';
 import { fetchObj, getRandomWords, correctColoring, spanWord, filterChildNodes, getMaxTrackIdx, matchedWords } from "../assets/js/utils.js";
 import { makeMove, MOVE_RIGHT, MOVE_LEFT, MOVE_UP, MOVE_DOWN, increaseSnake, INCREMENT_SCORE, scoreUpdates, stopGame, RESET_SCORE, resetGame, setWords } from "../store/actions/actions.ts";
-
+import MiniChart from "./MiniChart.js";
 
 
 const Stage = () => {
@@ -171,6 +171,7 @@ const Stage = () => {
     return ( 
 
                 <div className='Stage'>
+                    <MiniChart />
                     <ScoreCard />
 
                     <div className="wordDivs">
