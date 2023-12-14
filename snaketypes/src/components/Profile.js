@@ -7,6 +7,8 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { UserContext } from "./App";
 import defaultIcon from "../assets/img/profile-icon.jpg";
+import { Link } from "react-router-dom";
+import Dashboard from "./Dashboard";
 
 const Profile = () => {
   const { user } = useContext(UserContext);
@@ -41,8 +43,11 @@ const Profile = () => {
             bulk of the card's content.
           </Card.Text>
         )}
+        {/*{user ? <MiniChart /> : ""}*/}
         <Card.Link href="#">View Stats</Card.Link>
         <Card.Link href="#">View Profile</Card.Link>
+        {/*<Link to="/dashboard">Dashboard!</Link>*/}
+        <Dashboard />
       </div>
     </>
   );
