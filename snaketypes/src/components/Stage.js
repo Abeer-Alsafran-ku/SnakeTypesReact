@@ -57,6 +57,9 @@ const Stage = () => {
         let wordsArray_fetched = await fetchObj('words');
         let wordsArray_filtered = getRandomWords(wordsArray_fetched, 4);
         dispatch(setWords(wordsArray_filtered));
+        
+        document.getElementsByClassName('user-input')[0].value = '';        // current user input
+        setUpTrackIdx(0); setDownTrackIdx(0); setRightTrackIdx(0); setLeftTrackIdx(0);
       }, [dispatch])
 
     // the first time the page loads, set the words in redux store
@@ -73,6 +76,7 @@ const Stage = () => {
          wordDivs[1].innerHTML = spanWord(downWord.wordText);
          wordDivs[2].innerHTML = spanWord(rightWord.wordText);
          wordDivs[3].innerHTML = spanWord(leftWord.wordText);
+
     }, [upWord, downWord, rightWord, leftWord])
 
     // whenever a trackIdx is modified re-color the wordDivs
@@ -112,8 +116,7 @@ const Stage = () => {
         let downDivs = document.getElementById('downWord').childNodes;
         let rightDivs = document.getElementById('rightWord').childNodes;
         let leftDivs = document.getElementById('leftWord').childNodes;
-        let lastPressed = currentValue.value[currentValue.value.length - 1];        // last character the user typed
-
+        
         // filter excess elements, childNodes returns unnecessary elements so they have to be removed
         upDivs = filterChildNodes(upDivs, upWord.wordText);
         downDivs = filterChildNodes(downDivs, downWord.wordText);
@@ -122,10 +125,10 @@ const Stage = () => {
 
         // this structure is helpful in the algorithm
         let wordsFull = [
-            {word: upWord.wordText, wordDiv: upDivs, trackIdx: upTrackIdx, setTrackIdx: setUpTrackIdx},
-            {word: downWord.wordText, wordDiv: downDivs, trackIdx: downTrackIdx, setTrackIdx: setDownTrackIdx},
-            {word: rightWord.wordText, wordDiv: rightDivs, trackIdx: rightTrackIdx, setTrackIdx: setRightTrackIdx},
-            {word: leftWord.wordText, wordDiv: leftDivs, trackIdx: leftTrackIdx, setTrackIdx: setLeftTrackIdx}
+            {word: upWord.wordText, wordDiv: upDivs, trackIdx: upTrackIdx, setTrackIdx: setUpTrackIdx, action: MOVE_UP},
+            {word: downWord.wordText, wordDiv: downDivs, trackIdx: downTrackIdx, setTrackIdx: setDownTrackIdx, action: MOVE_DOWN},
+            {word: rightWord.wordText, wordDiv: rightDivs, trackIdx: rightTrackIdx, setTrackIdx: setRightTrackIdx, action: MOVE_RIGHT},
+            {word: leftWord.wordText, wordDiv: leftDivs, trackIdx: leftTrackIdx, setTrackIdx: setLeftTrackIdx, action: MOVE_LEFT}
         ];
 
         // find matched words, i.e, if input is "ap", then matched can be 'apple', 'apricot', etc..
@@ -135,10 +138,10 @@ const Stage = () => {
             return;
         }
 
+
         // handling <backspace>
         let maxTrackIdx = getMaxTrackIdx([upTrackIdx, downTrackIdx, rightTrackIdx, leftTrackIdx]);
         if(maxTrackIdx == currentValue.value.length + 1){
-            
             // if user is deleting from upWord
             if(upTrackIdx == maxTrackIdx){
                 // this ensures a positive trackIdx
@@ -159,11 +162,33 @@ const Stage = () => {
         }   // end handling backspace
 
         // for each matched word, increase its trackIdx indicating the last correct character typed of the word
-        for(let c = 0; c < matched.length; c++){            
+        for(let c = 0; c < matched.length; c++){
             // ensures that matching doesn't occur more than once on the same word
             if(matched[c].trackIdx + 1 <= currentValue.value.length){
                 matched[c].setTrackIdx(matched[c].trackIdx + 1)
             }
+        }
+
+        // detect if any word got completed
+        switch(currentValue.value){
+            case upWord.wordText:
+                moveSnake(0, -20, disallowedDirection);
+                wordsInit();
+                return;
+            case downWord.wordText:
+                moveSnake(0, 20, disallowedDirection);
+                wordsInit();
+                return;
+            case rightWord.wordText:
+                moveSnake(20, 0, disallowedDirection);
+                wordsInit();
+                return;
+            case leftWord.wordText:
+                moveSnake(-20, 0, disallowedDirection);
+                wordsInit();
+                return;
+            default:
+                // do notthing
         }
         
     }   // end trackWord
