@@ -53,10 +53,28 @@ const Stage = () => {
       );
 
     // initializes words in redux store
-    const wordsInit = useCallback(async ()=>{
+    const wordsInit = useCallback(async (replace = '', currentWords = [])=>{
         let wordsArray_fetched = await fetchObj('words');
         let wordsArray_filtered = getRandomWords(wordsArray_fetched, 4);
-        dispatch(setWords(wordsArray_filtered));
+
+        console.log('currentWords: ', currentWords)
+        // decides which word to replace i.e. if upWord is completed there is no need to shuffle the rest of the words
+        switch(replace){
+            case 'up':
+                dispatch(setWords([wordsArray_filtered[0], currentWords[1], currentWords[2], currentWords[3]]));
+                break;
+            case 'down':
+                dispatch(setWords([currentWords[0], wordsArray_filtered[0], currentWords[2], currentWords[3]]));
+                break;
+            case 'right':
+                dispatch(setWords([currentWords[0], currentWords[1], wordsArray_filtered[0], currentWords[3]]));
+                break;
+            case 'left':
+                dispatch(setWords([currentWords[0], currentWords[1], currentWords[2], wordsArray_filtered[0]]));
+                break;
+            default:
+                dispatch(setWords(wordsArray_filtered));
+        }
         
         document.getElementsByClassName('user-input')[0].value = '';        // current user input
         setUpTrackIdx(0); setDownTrackIdx(0); setRightTrackIdx(0); setLeftTrackIdx(0);
@@ -170,22 +188,23 @@ const Stage = () => {
         }
 
         // detect if any word got completed
+        let currentWords = [upWord, downWord, rightWord, leftWord];
         switch(currentValue.value){
             case upWord.wordText:
                 moveSnake(0, -20, disallowedDirection);
-                wordsInit();
+                wordsInit('up', currentWords);
                 return;
             case downWord.wordText:
                 moveSnake(0, 20, disallowedDirection);
-                wordsInit();
+                wordsInit('down', currentWords);
                 return;
             case rightWord.wordText:
                 moveSnake(20, 0, disallowedDirection);
-                wordsInit();
+                wordsInit('right', currentWords);
                 return;
             case leftWord.wordText:
                 moveSnake(-20, 0, disallowedDirection);
-                wordsInit();
+                wordsInit('left', currentWords);
                 return;
             default:
                 // do notthing
