@@ -1,5 +1,5 @@
 // general function that handles fetching.
-async function fetchObj(obj, url='http://localhost:5003', options={}){
+async function fetchObj(obj, options={}, url='http://localhost:5003'){
     
     return fetch(url + `/${obj}`, options )
     .then( async (httpResponse) => {
