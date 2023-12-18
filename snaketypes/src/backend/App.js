@@ -139,6 +139,9 @@ app.patch('/stats', (req, res) => {
 })
 
 // handling other paths
+app.all('*', (req, res) => {
+    res.send({error: "The requested operation does not exist or isn't implemented yet, contact Abdulwahab if there is a problem"})
+})
 
 app.listen(5001, () => {
     console.log('listening on port 5001 :D');
