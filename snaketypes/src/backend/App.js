@@ -83,8 +83,16 @@ app.post('/stats', async (req, res) => {
         highScore: req.body.highScore,
     }
 
-    database.stats.push(newStats);
-    res.send({message: "No Objections"})
+    const ObjectExists = database.stats.find(object => object.uid === newStats.uid);
+
+    if(ObjectExists){
+        res.send({error: "Object already exists"})
+    }
+    else{
+        database.stats.push(newStats);
+        res.send({message: "No Objections"}) 
+    }
+    
     /**
      * When mongo is used uncomment this section and modify accordingly
     let options = {
@@ -104,6 +112,8 @@ app.post('/stats', async (req, res) => {
     })
     */
 })
+
+// handling other paths
 
 app.listen(5001, () => {
     console.log('listening on port 5001 :D');
