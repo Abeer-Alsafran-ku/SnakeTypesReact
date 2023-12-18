@@ -113,6 +113,32 @@ app.post('/stats', async (req, res) => {
     */
 })
 
+
+// updating
+app.patch('/stats', (req, res) => {
+    console.log('attempting to update: ', req.body)
+
+    if(!req.body.uid || !req.body.field || !req.body.value ){
+        res.send({error: "Not all requested fields are fullfiled"});
+        return;
+    }
+
+
+    const idx = database.stats.findIndex(object => object.uid === req.body.uid);
+    
+    // if user not found
+    if(idx == -1){
+        res.send({error: "User does not exist"})    
+    }
+    else{
+        // for now just increment the field value, later should use switch statement to identify how to modify each field
+        console.log(database.stats[idx][req.body.field])
+        database.stats[idx][req.body.field] += req.body.value
+        res.send({message: "No Objections"})
+    }
+
+})
+
 // handling other paths
 
 app.listen(5001, () => {
