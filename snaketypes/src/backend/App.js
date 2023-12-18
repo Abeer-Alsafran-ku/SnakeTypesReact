@@ -132,7 +132,6 @@ app.patch('/stats', (req, res) => {
     }
     else{
         // for now just increment the field value, later should use switch statement to identify how to modify each field
-        console.log(database.stats[idx][req.body.field])
         database.stats[idx][req.body.field] += req.body.value
         res.send({message: "No Objections"})
     }
