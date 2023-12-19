@@ -49,11 +49,12 @@ app.post('/stats', async (req, res) => {
         highScore: req.body.highScore,
     }
 
-    // check if user exists
-    const ObjectExists = database.stats.find(object => object.uid === newStats.uid);
+    // check if user exists, should check from users collection
+    // const userExists = Stats.findOne({uid: req.body.uid});
+    const userExists = true;
 
-    if(ObjectExists && false){
-        res.send({error: "Object already exists"})
+    if(!userExists){
+        res.send({error: "User does not exist"})
     }
     else{
         await (new Stats(newStats)).save();
