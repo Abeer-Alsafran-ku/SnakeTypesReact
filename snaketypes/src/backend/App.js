@@ -1,7 +1,11 @@
-
+require("dotenv").config()
 var express = require('express');
+var mongoose = require('mongoose');
 const { fetchObj } = require('./utils');
 var app = express();
+
+const {Stats} = require('./models/Stats');
+
 
 app.use(express.json())
 
@@ -47,8 +51,8 @@ app.get('/stats', async (req, res) => {
         return;
     })
     */
-    
-    let stats = database.stats;
+
+    let stats = await Stats.find();
     res.send(stats);
 })
 
@@ -56,9 +60,9 @@ app.get('/stats', async (req, res) => {
 app.get('/stats/:uid', async (req, res) =>{
     let uid = req.params.uid;
     // let stats = await fetchObj(`stats`).catch((error)=>res.send({ServerError: error}))     // get all stats
-    let stats = database.stats;
+  
 
-    const userStats = stats.find(stat => stat.uid == uid);                  // find stats where user.uid = uid
+    const userStats = Stats.findById(uid);                  // find stats where user.uid = uid
     if(userStats){
         res.send(userStats)
         return
@@ -83,13 +87,14 @@ app.post('/stats', async (req, res) => {
         highScore: req.body.highScore,
     }
 
-    const ObjectExists = database.stats.find(object => object.uid === newStats.uid);
+    // check if user exists
+    // const ObjectExists = database.stats.find(object => object.uid === newStats.uid);
 
-    if(ObjectExists){
+    if(ObjectExists && false){
         res.send({error: "Object already exists"})
     }
     else{
-        database.stats.push(newStats);
+        await (new Stats(newStats)).save();
         res.send({message: "No Objections"}) 
     }
     
@@ -143,6 +148,16 @@ app.all('*', (req, res) => {
     res.send({error: "The requested operation does not exist or isn't implemented yet, contact Abdulwahab if there is a problem"})
 })
 
-app.listen(5001, () => {
+app.listen(5001, async () => {
+    let mongoURL = process.env.MONGO_URL;
+
+    try{
+        console.log('attempting mongo connection on: ', mongoURL)
+        await mongoose.connect(mongoURL)
+        console.log('connected to mongo :D')
+    }
+    catch(error){
+        console.log('mongo connection error: ', error)
+    }
     console.log('listening on port 5001 :D');
 })
