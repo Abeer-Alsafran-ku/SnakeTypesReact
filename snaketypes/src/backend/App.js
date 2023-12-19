@@ -46,29 +46,25 @@ let database = {
 
 // get all stats
 app.get('/stats', async (req, res) => {
-   /* let stats = await fetchObj('stats').catch((error)=>{
-        res.json({ServerError: error})
-        return;
-    })
-    */
+   
+    let uid = req.body.uid;
+    let stats = null;
 
-    let stats = await Stats.find();
-    res.send(stats);
-})
-
-// get specific stats
-app.get('/stats/:uid', async (req, res) =>{
-    let uid = req.params.uid;
-    // let stats = await fetchObj(`stats`).catch((error)=>res.send({ServerError: error}))     // get all stats
-  
-
-    const userStats = Stats.findById(uid);                  // find stats where user.uid = uid
-    if(userStats){
-        res.send(userStats)
-        return
+    // if uid is not provided retrieve all stats
+    if(!uid){
+        stats = await Stats.find();
     }
-    res.status(404).json({error: 'User Not Found'});
+    else{
+        // find stats where user.uid = uid and send it
+        stats = await Stats.findOne({uid: uid});
+        console.log('stats: ', stats)                  
+        if(!stats){
+            res.status(404).json({error: 'User Not Found'});
+            return;
+        }
+    }
 
+    res.send(stats);
 })
 
 app.post('/stats', async (req, res) => {
@@ -82,13 +78,13 @@ app.post('/stats', async (req, res) => {
     let newStats = {
         uid: req.body.uid,
         avgScore: req.body.avgScore,
-        gamePlayed: req.body.gamesPlayed,
+        gamesPlayed: req.body.gamesPlayed,
         wordsCompleted: req.body.wordsCompleted,
         highScore: req.body.highScore,
     }
 
     // check if user exists
-    // const ObjectExists = database.stats.find(object => object.uid === newStats.uid);
+    const ObjectExists = database.stats.find(object => object.uid === newStats.uid);
 
     if(ObjectExists && false){
         res.send({error: "Object already exists"})
@@ -120,7 +116,7 @@ app.post('/stats', async (req, res) => {
 
 
 // updating
-app.patch('/stats', (req, res) => {
+app.patch('/stats', async (req, res) => {
     console.log('attempting to update: ', req.body)
 
     if(!req.body.uid || !req.body.field || !req.body.value ){
@@ -129,16 +125,18 @@ app.patch('/stats', (req, res) => {
     }
 
 
-    const idx = database.stats.findIndex(object => object.uid === req.body.uid);
+    const stat = await Stats.findOne({uid: req.body.uid});
     
     // if user not found
-    if(idx == -1){
-        res.send({error: "User does not exist"})    
+    if(stat){
+        // for now just increment the field value, later should use switch statement to identify how to modify each field
+        stat[req.body.field] += req.body.value;
+        stat.save()
+
+        res.send({message: `Field updated successfully`})    
     }
     else{
-        // for now just increment the field value, later should use switch statement to identify how to modify each field
-        database.stats[idx][req.body.field] += req.body.value
-        res.send({message: "No Objections"})
+        res.send({error: "User does not exist"})
     }
 
 })
