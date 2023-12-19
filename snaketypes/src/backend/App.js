@@ -40,7 +40,21 @@ let database = {
         "wordsCompleted": 150,
         "highScore": 4.9
       }
-    ]
+    ],
+    "users": [
+        {
+          "id": 1,
+          "username": "John Doe",
+          "password": "abc123@",
+          "img": "https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+        },
+        {
+          "id": 2,
+          "username": "emy",
+          "password": "a1@",
+          "img": "https://mdbcdn.b-cdn.net/img/new/avatars/4.webp"
+        }
+      ]
   }
 
 // get all stats
