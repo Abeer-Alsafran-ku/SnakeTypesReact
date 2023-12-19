@@ -10,9 +10,9 @@ const {Stats} = require('./models/Stats');
 app.use(express.json())
 
 
+
 // get all stats
 app.get('/stats', async (req, res) => {
-   
     let uid = req.body.uid;
     let stats = null;
 
@@ -84,14 +84,12 @@ app.post('/stats', async (req, res) => {
 
 // updating
 app.patch('/stats', async (req, res) => {
-    console.log('attempting to update: ', req.body)
-
+  
     if(!req.body.uid || !req.body.field || !req.body.value ){
         res.send({error: "Not all requested fields are fullfiled"});
         return;
     }
-
-
+  
     const stat = await Stats.findOne({uid: req.body.uid});
     
     // if user not found
