@@ -9,40 +9,6 @@ const {Stats} = require('./models/Stats');
 
 app.use(express.json())
 
-// later this will be linked into mongo
-let database = {
-    "stats": [
-      {
-        "uid": 1,
-        "avgScore": 3.9,
-        "gamesPlayed": 7,
-        "wordsCompleted": 301,
-        "highScore": 5.7
-      },
-      {
-        "uid": 2,
-        "avgScore": 4.2,
-        "gamesPlayed": 5,
-        "wordsCompleted": 250,
-        "highScore": 6.2
-      },
-      {
-        "uid": 3,
-        "avgScore": 4.5,
-        "gamesPlayed": 9,
-        "wordsCompleted": 400,
-        "highScore": 7.1
-      },
-      {
-        "uid": 4,
-        "avgScore": 3.7,
-        "gamesPlayed": 3,
-        "wordsCompleted": 150,
-        "highScore": 4.9
-      }
-    ]
-  }
-
 
 // get all stats
 app.get('/stats', async (req, res) => {
@@ -91,7 +57,7 @@ app.post('/stats', async (req, res) => {
     }
     else{
         await (new Stats(newStats)).save();
-        res.send({message: "No Objections"}) 
+        res.send({message: "Object added successfully"}) 
     }
     
     /**
