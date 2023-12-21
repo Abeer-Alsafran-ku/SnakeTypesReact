@@ -91,7 +91,7 @@ const gameReducer = (state = globalState, action) => {
               { x: 520, y: 300 },
               { x: 500, y: 300 },
             ],
-            disallowedDirection: ''
+            disallowedDirection: LEFT
           }
 
         case SET_WORDS:
