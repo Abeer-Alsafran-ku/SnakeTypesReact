@@ -82,6 +82,8 @@ const Stage = () => {
 
     // the first time the page loads, set the words in redux store
     useEffect(()=>{
+        dispatch(resetGame());                        // stops dispatching actions infinitly within saga
+        dispatch(scoreUpdates(RESET_SCORE));          // resets score
         wordsInit();
     }, [] )
 
