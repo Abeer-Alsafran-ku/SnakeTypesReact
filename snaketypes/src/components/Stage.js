@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { fetchObj, getRandomWords, correctColoring, spanWord, filterChildNodes, getMaxTrackIdx, matchedWords } from "../assets/js/utils.js";
 import { makeMove, MOVE_RIGHT, MOVE_LEFT, MOVE_UP, MOVE_DOWN, increaseSnake, INCREMENT_SCORE, scoreUpdates, stopGame, RESET_SCORE, resetGame, setWords } from "../store/actions/actions.ts";
 import MiniProfile from "./MiniProfile.js";
+import Stopwatch from "./Stopwatch.js";
 
 
 const Stage = () => {
