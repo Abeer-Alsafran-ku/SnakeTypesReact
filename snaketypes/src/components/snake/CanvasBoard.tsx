@@ -16,7 +16,7 @@ export interface ICanvasBoard {
 };
 
 
-const CanvasBoard = ({ height, width }: ICanvasBoard) => {
+const CanvasBoard = ({ height, width, time, setTime, running, setRunning }) => {
 
   // used to dispatch actions to reducer
   const dispatch = useDispatch();
@@ -121,6 +121,7 @@ const CanvasBoard = ({ height, width }: ICanvasBoard) => {
     if (hasSnakeCollided(snake, snake[0]) || isSnakeOutOfBound(snake, width, height)) {
       setGameEnded(true);
       dispatch(stopGame());
+      setRunning(false);
       window.removeEventListener('keypress', handleKeyEvents);
     }
 
@@ -153,6 +154,7 @@ const CanvasBoard = ({ height, width }: ICanvasBoard) => {
   const resetBoard = useCallback(() => {
     window.removeEventListener("keypress", handleKeyEvents);
 
+    setTime(0);                                   // resets timer
     dispatch(resetGame());                        // stops dispatching actions infinitly within saga
     dispatch(scoreUpdates(RESET_SCORE));          // resets score
     clearBoard(context);                          // clears board

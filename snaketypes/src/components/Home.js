@@ -3,14 +3,13 @@ import "../assets/css/Home.css";
 import { useEffect, useState } from "react";
 import MiniProfile from "./MiniProfile";
 import fetchObj from "../assets/js/utils";
-import Stopwatch from "./Stopwatch";
+import Stopwatch from "./Timer";
 
 const Home = () => {
 
   return (
     <>
       <MiniProfile />
-      <Stopwatch />
       <div className="Home">
         <div>
           <h5>Game Description</h5>
