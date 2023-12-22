@@ -87,10 +87,17 @@ const Stage = () => {
 
     // the first time the page loads, set the words in redux store
     useEffect(()=>{
+        // hides Header when the Stage renders
+        let header = document.getElementsByClassName('Header')[0];
+        header.style.display = 'none';
+
         dispatch(resetGame());                        // stops dispatching actions infinitly within saga
         dispatch(scoreUpdates(RESET_SCORE));          // resets score
         setTime(0);
         wordsInit();
+
+        // unhides Header when Stage is unmounted
+        return ()=>{header.style.display = 'block'}
     }, [] )
 
     // when the words are set, fill the wordDivs
@@ -223,6 +230,7 @@ const Stage = () => {
         }
         
     }   // end trackWord
+
 
     return ( 
 
