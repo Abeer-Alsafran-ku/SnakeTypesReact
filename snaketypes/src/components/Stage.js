@@ -227,9 +227,15 @@ const Stage = () => {
     return ( 
 
                 <div className='Stage'>
+
                     <MiniProfile />
-                    <ScoreCard />
-                    <Timer time={time} setTime={setTime} running={running} setRunning={setRunning} />
+
+                    {/* Shows some stats on the right */}
+                    <div className="game-stats">
+                        <ScoreCard />
+                        <Timer time={time} setTime={setTime} running={running} setRunning={setRunning} />
+                    </div>
+                    
                     <div className="wordDivs">
                         <div className='word' id="upWord"></div>
                         <div className='word' id="downWord"></div>
