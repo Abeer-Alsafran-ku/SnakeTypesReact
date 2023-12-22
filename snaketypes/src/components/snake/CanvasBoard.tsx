@@ -7,7 +7,6 @@ import React from "react";
 import { makeMove, MOVE_RIGHT, MOVE_LEFT, MOVE_UP, MOVE_DOWN, increaseSnake, INCREMENT_SCORE, scoreUpdates, stopGame, RESET_SCORE, resetGame, setWords } from "../../store/actions/actions.ts";
 
 import '../../assets/css/CanvasBoard.css'
-import { delay } from "redux-saga/effects";
 import Instruction from "./Instructions.tsx";
 
 export interface ICanvasBoard {
@@ -124,6 +123,9 @@ const CanvasBoard = ({ height, width, time, setTime, running, setRunning }) => {
       setRunning(false);
       window.removeEventListener('keypress', handleKeyEvents);
     }
+    else{
+      setGameEnded(false)
+    }
 
   }, [context, pos, snake, height, width, dispatch, handleKeyEvents]);
 
@@ -216,9 +218,20 @@ const CanvasBoard = ({ height, width, time, setTime, running, setRunning }) => {
         height={height}
         width={width}
       />
-      <Instruction resetBoard={resetBoard} />
-      <button onClick={resetBoard}>RESET</button>
-
+      {/* <Instruction resetBoard={resetBoard} /> */}
+      {/* <button className="reset-button" onClick={resetBoard}>RESET</button> */}
+      
+      {(gameEnded)?
+        <div className="btn btn-three">
+          <button
+            style={{background: "none", color: "white",	border: "none",	padding: 0,	font: "inherit", cursor: "pointer", outline: "inherit"}}
+            onClick={resetBoard}>
+              RESET
+          </button>
+        </div>
+        :
+        <></>
+      }
     </div>
   );
 };
