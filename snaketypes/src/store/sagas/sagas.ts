@@ -41,7 +41,7 @@ import { ISnakeCoord } from "../reducers/reducers.ts";
           yield put(setDisAllowedDirection(UP));
           break;
       }
-      yield delay(100);   // game speed: delay between each action
+      yield delay(300);   // game speed: delay between each action
     }
   }
   

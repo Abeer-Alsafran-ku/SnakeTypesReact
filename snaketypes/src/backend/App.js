@@ -1,4 +1,6 @@
+require("dotenv").config()
 var express = require('express');
+var mongoose = require('mongoose');
 const { fetchObj } = require('./utils');
 var app = express();
 
@@ -7,80 +9,28 @@ const {Users} = require('./models/Users');
 
 app.use(express.json())
 
-// later this will be linked into mongo
-let database = {
-    "stats": [
-      {
-        "uid": 1,
-        "avgScore": 3.9,
-        "gamesPlayed": 7,
-        "wordsCompleted": 301,
-        "highScore": 5.7
-      },
-      {
-        "uid": 2,
-        "avgScore": 4.2,
-        "gamesPlayed": 5,
-        "wordsCompleted": 250,
-        "highScore": 6.2
-      },
-      {
-        "uid": 3,
-        "avgScore": 4.5,
-        "gamesPlayed": 9,
-        "wordsCompleted": 400,
-        "highScore": 7.1
-      },
-      {
-        "uid": 4,
-        "avgScore": 3.7,
-        "gamesPlayed": 3,
-        "wordsCompleted": 150,
-        "highScore": 4.9
-      }
-    ],
-    "users": [
-      {
-        "id": 1,
-        "username": "John Doe",
-        "password": "abc123@",
-        "img": "https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
-      },
-      {
-        "id": 2,
-        "username": "emy",
-        "password": "a1@",
-        "img": "https://mdbcdn.b-cdn.net/img/new/avatars/4.webp"
-      }
-    ]
-  }
 
 
 // get all stats
 app.get('/stats', async (req, res) => {
-   /* let stats = await fetchObj('stats').catch((error)=>{
-        res.json({ServerError: error})
-        return;
-    })
-    */
-    
-    let stats = database.stats;
-    res.send(stats);
-})
+    let uid = req.body.uid;
+    let stats = null;
 
-// get specific stats
-app.get('/stats/:uid', async (req, res) =>{
-    let uid = req.params.uid;
-    // let stats = await fetchObj(`stats`).catch((error)=>res.send({ServerError: error}))     // get all stats
-    let stats = database.stats;
-
-    const userStats = stats.find(stat => stat.uid == uid);                  // find stats where user.uid = uid
-    if(userStats){
-        res.send(userStats)
-        return
+    // if uid is not provided retrieve all stats
+    if(!uid){
+        stats = await Stats.find();
     }
-    res.status(404).json({error: 'User Not Found'});
+    else{
+        // find stats where user.uid = uid and send it
+        stats = await Stats.findOne({uid: uid});
+        console.log('stats: ', stats)                  
+        if(!stats){
+            res.status(404).json({error: 'User Not Found'});
+            return;
+        }
+    }
 
+    res.send(stats);
 })
 
 app.post('/stats', async (req, res) => {
@@ -94,19 +44,21 @@ app.post('/stats', async (req, res) => {
     let newStats = {
         uid: req.body.uid,
         avgScore: req.body.avgScore,
-        gamePlayed: req.body.gamesPlayed,
+        gamesPlayed: req.body.gamesPlayed,
         wordsCompleted: req.body.wordsCompleted,
         highScore: req.body.highScore,
     }
 
-    const ObjectExists = database.stats.find(object => object.uid === newStats.uid);
+    // check if user exists, should check from users collection
+    // const userExists = Stats.findOne({uid: req.body.uid});
+    const userExists = true;
 
-    if(ObjectExists){
-        res.send({error: "Object already exists"})
+    if(!userExists){
+        res.send({error: "User does not exist"})
     }
     else{
-        database.stats.push(newStats);
-        res.send({message: "No Objections"}) 
+        await (new Stats(newStats)).save();
+        res.send({message: "Object added successfully"}) 
     }
     
     /**
@@ -131,20 +83,22 @@ app.post('/stats', async (req, res) => {
 
 
 // updating
-app.patch('/stats', (req, res) => {
-    console.log('attempting to update: ', req.body)
-
+app.patch('/stats', async (req, res) => {
+  
     if(!req.body.uid || !req.body.field || !req.body.value ){
         res.send({error: "Not all requested fields are fullfiled"});
         return;
     }
-
-
-    const idx = database.stats.findIndex(object => object.uid === req.body.uid);
+  
+    const stat = await Stats.findOne({uid: req.body.uid});
     
     // if user not found
-    if(idx == -1){
-        res.send({error: "User does not exist"})    
+    if(stat){
+        // for now just increment the field value, later should use switch statement to identify how to modify each field
+        stat[req.body.field] += req.body.value;
+        stat.save()
+
+        res.send({message: `Field updated successfully`})    
     }
     else{
         // for now just increment the field value, later should use switch statement to identify how to modify each field
@@ -211,7 +165,6 @@ app.patch('/users/:id', async(req, res) => {
     // if user is not found
     if (!user) {
         res.send({error: "User does not exist"})
-        return;
     }
 
     // update
@@ -241,6 +194,16 @@ app.all('*', (req, res) => {
     res.send({error: "The requested operation does not exist or isn't implemented yet, contact Abdulwahab if there is a problem"})
 })
 
-app.listen(5001, () => {
+app.listen(5001, async () => {
+    let mongoURL = process.env.MONGO_URL;
+
+    try{
+        console.log('attempting mongo connection on: ', mongoURL)
+        await mongoose.connect(mongoURL)
+        console.log('connected to mongo :D')
+    }
+    catch(error){
+        console.log('mongo connection error: ', error)
+    }
     console.log('listening on port 5001 :D');
 })
