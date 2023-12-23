@@ -1,7 +1,9 @@
-
 var express = require('express');
 const { fetchObj } = require('./utils');
 var app = express();
+
+const {Stats} = require('./models/Stats');
+const {Users} = require('./models/Users');
 
 app.use(express.json())
 
@@ -153,15 +155,15 @@ app.patch('/stats', (req, res) => {
 })
 
 // get all users
-app.get('/users', (req, res) => {
-    let users = database.users;
+app.get('/users', async (req, res) => {
+    let users = await Users.find();
     res.send(users);
 })
 
 //get specific user
-app.get('/users/:id', (req, res) => {
+app.get('/users/:id', async (req, res) => {
     let userId = req.params.id;
-    let user = database.users.find(u => u.id == userId);
+    let user = await Users.findOne({id: userId});
     if (user) {
         res.send(user);
     } else {
@@ -170,60 +172,68 @@ app.get('/users/:id', (req, res) => {
 })
 
 // create user
-app.post('/users', (req, res) => {
+app.post('/users', async (req, res) => {
     if (!req.body.username || !req.body.password || !req.body.img) {
         res.send({ error: "Not all requested fields are fulfilled" });
         return;
     }
 
+    const highestIdUser = await Users.findOne().sort({ id: -1 });
+    const newUserId = highestIdUser ? highestIdUser.id + 1 : 1;
+
     let newUser = {
-        id: database.users.length + 1,
+        id: newUserId,
         username: req.body.username,
         password: req.body.password,
         img: req.body.img,
     };
 
-    const userExists = database.users.find(u => u.username === newUser.username);
+    const userExists = await Users.findOne({username: newUser.username});
 
     if (userExists) {
         res.send({ error: "User already exists" });
     } else {
-        database.users.push(newUser);
+        await (new Users(newUser)).save();
         res.send({ message: "User created successfully" });
     }
 
 })
 
 //updating user
-app.patch('/users/:id', (req, res) => {
+app.patch('/users/:id', async(req, res) => {
     if (!req.body.username && !req.body.password && !req.body.img) {
         res.send({error: "Not all requested fields are fullfiled"});
         return;
     }
 
-    const userIndex = database.users.findIndex(u => u.id == req.params.id);
+    const user = await Users.findOne({id: req.params.id});
 
     // if user is not found
-    if (userIndex === -1) {
+    if (!user) {
         res.send({error: "User does not exist"})
         return;
     }
 
     // update
     if (req.body.username) {
-        database.users[userIndex].username = req.body.username;
+        user.username = req.body.username;
     }
 
     if (req.body.password) {
-        database.users[userIndex].password = req.body.password;
+        user.password = req.body.password;
     }
 
     if (req.body.img) {
-        database.users[userIndex].img = req.body.img;
+        user.img = req.body.img;
     }
-
+    user.save();
     res.json({ message: 'User updated successfully'});
 });
+
+//delete user
+app.delete('/users/:id', async(req, res) => {
+    res.send({ message: 'User deleted successfully' });
+})
 
 
 // handling other paths

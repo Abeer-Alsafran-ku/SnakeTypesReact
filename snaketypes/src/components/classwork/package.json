@@ -10,9 +10,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+<<<<<<< Updated upstream:snaketypes/src/components/classwork/package.json
     "express": "^4.18.2"
   },
   "devDependencies": {
+=======
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "mongodb": "^6.3.0",
+>>>>>>> Stashed changes:snaketypes/src/backend/package.json
     "nodemon": "^3.0.2"
   }
 }
