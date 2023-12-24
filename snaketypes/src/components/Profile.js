@@ -8,7 +8,7 @@ import Col from "react-bootstrap/Col";
 import { UserContext } from "./App";
 import defaultIcon from "../assets/img/profile-icon.jpg";
 import { Link } from "react-router-dom";
-import Dashboard from "./Dashboard";
+import LeaderBoard from "./LeaderBoard";
 
 const Profile = () => {
   const { user } = useContext(UserContext);
@@ -32,22 +32,39 @@ const Profile = () => {
           style={{ display: "flex", maxWidth: "7%" }}
         />
         <Card.Title>{user ? user.username : "Guest"}</Card.Title>
-        <Card.Subtitle className="mb-2 text-muted">
-          {user ? `Average ${user.avg_wpm} wpm` : ""}{" "}
-        </Card.Subtitle>
+        
         {user ? (
-          <Card.Text>Nice to see you again {user.username} ^_^</Card.Text>
-        ) : (
           <Card.Text>
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
+            Nice to see you again {user.username} ^_^
+          </Card.Text>
+          ) : (
+          <Card.Text>
+            {/*Some quick example text to build on the card title and make up the
+            bulk of the card's content.*/}
+            <p>
+              <Link to="/login">Log in or Sign up now!</Link>
+            </p>
           </Card.Text>
         )}
-        {/*{user ? <MiniChart /> : ""}*/}
-        <Card.Link href="#">View Stats</Card.Link>
-        <Card.Link href="#">View Profile</Card.Link>
-        {/*<Link to="/dashboard">Dashboard!</Link>*/}
-        <Dashboard />
+
+        <Card.Subtitle className="mb-2 text-muted">
+          {user ? (
+            <>
+              {`Highest Score is ${user.score}`}
+              <div style={{ marginTop: "20px", marginLeft: "auto", marginRight: "auto", width: "100%"}}>
+                <Link to="/stage" className="start-button">
+                  Let's Play 🐍!
+                </Link>
+              </div>
+              {/*<MiniChart monthlyStats={user.monthlyStats}/> */}
+            </>
+          ) : ("")}
+        </Card.Subtitle>
+        {/*{user ? <MiniChart /> : ""}
+        <Card.Link href="#"> View Stats</Card.Link>
+        <Card.Link href="#">View Leader board</Card.Link>
+        <Link to="/dashboard">Dashboard!</Link>*/}
+        <LeaderBoard />
       </div>
     </>
   );

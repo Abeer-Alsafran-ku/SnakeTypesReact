@@ -7,13 +7,20 @@ import Side from "./Side";
 import Profile from "./Profile";
 import Register from "./Register";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import React, { createContext, useState } from "react";
-import Dashboard from "./Dashboard";
+import React, { createContext, useState, useEffect } from "react";
+import LeaderBoard from "./LeaderBoard";
 
 export const UserContext = createContext();
 
 function App() {
   const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
@@ -33,7 +40,7 @@ function App() {
             <Route exact path="/register" Component={Register} />
             {/* Profile */}
             <Route exact path="/profile" Component={Profile} />
-            <Route exact path="/dashboard" Component={Dashboard} />
+            <Route exact path="/leaderboard" Component={LeaderBoard} />
           </Routes>
         </div>
       </Router>{" "}
