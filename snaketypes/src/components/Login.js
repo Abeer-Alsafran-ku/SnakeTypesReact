@@ -1,5 +1,5 @@
 import "../assets/css/Login.css";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "./App";
 
@@ -10,6 +10,13 @@ const Login = () => {
   const [loginPassword, setLoginPassword] = useState("");
   const [error, setError] = useState(null);
 
+  /*useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, [setUser]);*/
+
   const handleLogin = (event) => {
     event.preventDefault();
 
@@ -18,7 +25,6 @@ const Login = () => {
         if (!res.ok) {
           throw Error("couldn't fetch user");
         }
-        //parse the json response
         return res.json();
       })
       .then((users) => {
@@ -31,6 +37,7 @@ const Login = () => {
           console.log("You have an account");
           setError(null);
           setUser(foundUser);
+          localStorage.setItem("user", JSON.stringify(foundUser));
         } else {
           throw Error("username or password are incorrect");
         }
@@ -42,6 +49,7 @@ const Login = () => {
   };
 
   const handleLogout = () => {
+    localStorage.removeItem("user");
     setUser(null);
     console.log("You have logged out");
   };
@@ -51,11 +59,16 @@ const Login = () => {
       <div>
         <h2>You are logged in!</h2>
         <p>Welcome, {user.username}!</p>
-        <p>Let's Play 🐍</p>
         <img src={user.img} alt={user.username} style={{maxWidth: "10%", borderRadius: "50%",
           marginRight: "10px",
-        }}
-/>
+        }}/>
+        
+        <div style={{ marginTop: "20px", marginLeft: "auto", marginRight: "auto", width: "20%"}}>
+          <Link to="/stage" className="start-button">
+          Let's Play 🐍!
+          </Link>
+        </div>
+
         <br />
         <br />
         <button onClick={handleLogout}>Logout</button>

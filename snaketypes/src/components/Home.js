@@ -39,12 +39,18 @@ const Home = () => {
             <li>📈 Watch your SCORES improve over time ^_^</li>
           </ul>
         </div>
-        <div className="start-button-container">
+        <div className="button-container">
           <Link to="/stage" className="start-button">
-            Start Playing
+            Start Playing as a guest!
           </Link>
-        </div>
+          <Link to="/login" className="start-button">
+            Log in to Play!
+          </Link>
+          <Link to="/register" className="start-button">
+            New User? Sign up to Play!
+          </Link>
       </div>
+    </div>
     </>
   );
 };
