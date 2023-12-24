@@ -3,6 +3,7 @@ import "../assets/css/Home.css";
 import { useEffect, useState } from "react";
 import MiniProfile from "./MiniProfile";
 import fetchObj from "../assets/js/utils";
+import Stopwatch from "./Timer";
 
 const Home = () => {
 

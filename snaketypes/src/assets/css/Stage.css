@@ -27,3 +27,13 @@
     position: absolute;
     /* display: flex; */
 }
+
+.game-stats{
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    position: fixed;
+    right: 0;
+    margin-right: 3rem;
+    top: 40%;
+}

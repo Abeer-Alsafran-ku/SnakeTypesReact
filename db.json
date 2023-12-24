@@ -18,6 +18,10 @@
 
   "words": [
     {
+      "wordText": "guava",
+      "difficulty": 1
+    },
+    {
       "wordText": "apple",
       "difficulty": 1
     },
