@@ -34,8 +34,10 @@ const Profile = () => {
         <Card.Title>{user ? user.username : "Guest"}</Card.Title>
         
         {user ? (
-          <Card.Text>Nice to see you again {user.username} ^_^</Card.Text>
-        ) : (
+          <Card.Text>
+            Nice to see you again {user.username} ^_^
+          </Card.Text>
+          ) : (
           <Card.Text>
             {/*Some quick example text to build on the card title and make up the
             bulk of the card's content.*/}
@@ -44,8 +46,19 @@ const Profile = () => {
             </p>
           </Card.Text>
         )}
+
         <Card.Subtitle className="mb-2 text-muted">
-          {user ? `Highest Score is ${user.score}` : ""}{" "}
+          {user ? (
+            <>
+              {`Highest Score is ${user.score}`}
+              <div style={{ marginTop: "20px", marginLeft: "auto", marginRight: "auto", width: "100%"}}>
+                <Link to="/stage" className="start-button">
+                  Let's Play 🐍!
+                </Link>
+              </div>
+              {/*<MiniChart monthlyStats={user.monthlyStats}/> */}
+            </>
+          ) : ("")}
         </Card.Subtitle>
         {/*{user ? <MiniChart /> : ""}
         <Card.Link href="#"> View Stats</Card.Link>

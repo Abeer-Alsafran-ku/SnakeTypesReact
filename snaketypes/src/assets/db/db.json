@@ -4,58 +4,57 @@
       "id": 1,
       "username": "John Doe",
       "password": "abc123@",
-      "score": 2,
+      "score": 11,
       "img": "https://mdbcdn.b-cdn.net/img/new/avatars/2.webp",
       "gamesPlayed": 10,
-      "highestWPM": 60,
       "monthlyStats": [
         {
           "month": "January",
-          "wpm": 80
+          "score": 15
         },
         {
           "month": "February",
-          "wpm": 85
+          "score": 18
         },
         {
           "month": "March",
-          "wpm": 75
+          "score": 13
         },
         {
           "month": "April",
-          "wpm": 90
+          "score": 17
         },
         {
           "month": "May",
-          "wpm": 88
+          "score": 14
         },
         {
           "month": "June",
-          "wpm": 92
+          "score": 19
         },
         {
           "month": "July",
-          "wpm": 78
+          "score": 78
         },
         {
           "month": "August",
-          "wpm": 85
+          "score": 85
         },
         {
           "month": "September",
-          "wpm": 87
+          "score": 87
         },
         {
           "month": "October",
-          "wpm": 95
+          "score": 95
         },
         {
           "month": "November",
-          "wpm": 89
+          "score": 89
         },
         {
           "month": "December",
-          "wpm": 93
+          "score": 93
         }
       ]
     },
@@ -66,55 +65,54 @@
       "score": 6,
       "img": "https://mdbcdn.b-cdn.net/img/new/avatars/4.webp",
       "gamesPlayed": 15,
-      "highestWPM": 77,
       "monthlyStats": [
         {
           "month": "January",
-          "wpm": 80
+          "score": 80
         },
         {
           "month": "February",
-          "wpm": 85
+          "score": 85
         },
         {
           "month": "March",
-          "wpm": 90
+          "score": 90
         },
         {
           "month": "April",
-          "wpm": 78
+          "score": 78
         },
         {
           "month": "May",
-          "wpm": 88
+          "score": 88
         },
         {
           "month": "June",
-          "wpm": 92
+          "score": 92
         },
         {
           "month": "July",
-          "wpm": 87
+          "score": 87
         },
         {
           "month": "August",
-          "wpm": 95
+          "score": 95
         },
         {
           "month": "September",
-          "wpm": 82
+          "score": 82
         },
         {
           "month": "October",
-          "wpm": 89
+          "score": 89
         },
         {
           "month": "November",
-          "wpm": 91
+          "score": 91
         },
         {
           "month": "December",
-          "wpm": 86
+          "score": 86
         }
       ]
     },
@@ -125,55 +123,54 @@
       "score": 4,
       "img": "https://mdbcdn.b-cdn.net/img/new/avatars/22.webp",
       "gamesPlayed": 10,
-      "highestWPM": 60,
       "monthlyStats": [
         {
           "month": "January",
-          "wpm": 80
+          "score": 80
         },
         {
           "month": "February",
-          "wpm": 85
+          "score": 85
         },
         {
           "month": "March",
-          "wpm": 75
+          "score": 75
         },
         {
           "month": "April",
-          "wpm": 90
+          "score": 90
         },
         {
           "month": "May",
-          "wpm": 88
+          "score": 88
         },
         {
           "month": "June",
-          "wpm": 92
+          "score": 92
         },
         {
           "month": "July",
-          "wpm": 78
+          "score": 78
         },
         {
           "month": "August",
-          "wpm": 85
+          "score": 85
         },
         {
           "month": "September",
-          "wpm": 87
+          "score": 87
         },
         {
           "month": "October",
-          "wpm": 95
+          "score": 95
         },
         {
           "month": "November",
-          "wpm": 89
+          "score": 89
         },
         {
           "month": "December",
-          "wpm": 93
+          "score": 93
         }
       ]
     },
@@ -184,55 +181,54 @@
       "score": 3,
       "img": "https://mdbcdn.b-cdn.net/img/new/avatars/25.webp",
       "gamesPlayed": 10,
-      "highestWPM": 60,
       "monthlyStats": [
         {
           "month": "January",
-          "wpm": 80
+          "score": 80
         },
         {
           "month": "February",
-          "wpm": 85
+          "score": 85
         },
         {
           "month": "March",
-          "wpm": 75
+          "score": 75
         },
         {
           "month": "April",
-          "wpm": 90
+          "score": 90
         },
         {
           "month": "May",
-          "wpm": 88
+          "score": 88
         },
         {
           "month": "June",
-          "wpm": 92
+          "score": 92
         },
         {
           "month": "July",
-          "wpm": 78
+          "score": 78
         },
         {
           "month": "August",
-          "wpm": 85
+          "score": 85
         },
         {
           "month": "September",
-          "wpm": 87
+          "score": 87
         },
         {
           "month": "October",
-          "wpm": 95
+          "score": 95
         },
         {
           "month": "November",
-          "wpm": 89
+          "score": 89
         },
         {
           "month": "December",
-          "wpm": 93
+          "score": 93
         }
       ]
     },
@@ -243,55 +239,54 @@
       "score": 5,
       "img": "https://mdbcdn.b-cdn.net/img/new/avatars/23.webp",
       "gamesPlayed": 10,
-      "highestWPM": 60,
       "monthlyStats": [
         {
           "month": "January",
-          "wpm": 80
+          "score": 80
         },
         {
           "month": "February",
-          "wpm": 85
+          "score": 85
         },
         {
           "month": "March",
-          "wpm": 75
+          "score": 75
         },
         {
           "month": "April",
-          "wpm": 90
+          "score": 90
         },
         {
           "month": "May",
-          "wpm": 88
+          "score": 88
         },
         {
           "month": "June",
-          "wpm": 92
+          "score": 92
         },
         {
           "month": "July",
-          "wpm": 78
+          "score": 78
         },
         {
           "month": "August",
-          "wpm": 85
+          "score": 85
         },
         {
           "month": "September",
-          "wpm": 87
+          "score": 87
         },
         {
           "month": "October",
-          "wpm": 95
+          "score": 95
         },
         {
           "month": "November",
-          "wpm": 89
+          "score": 89
         },
         {
           "month": "December",
-          "wpm": 93
+          "score": 93
         }
       ]
     },
@@ -302,55 +297,54 @@
       "score": 6,
       "img": "https://mdbcdn.b-cdn.net/img/new/avatars/16.webp",
       "gamesPlayed": 10,
-      "highestWPM": 60,
       "monthlyStats": [
         {
           "month": "January",
-          "wpm": 80
+          "score": 80
         },
         {
           "month": "February",
-          "wpm": 85
+          "score": 85
         },
         {
           "month": "March",
-          "wpm": 75
+          "score": 75
         },
         {
           "month": "April",
-          "wpm": 90
+          "score": 90
         },
         {
           "month": "May",
-          "wpm": 88
+          "score": 88
         },
         {
           "month": "June",
-          "wpm": 92
+          "score": 92
         },
         {
           "month": "July",
-          "wpm": 78
+          "score": 78
         },
         {
           "month": "August",
-          "wpm": 85
+          "score": 85
         },
         {
           "month": "September",
-          "wpm": 87
+          "score": 87
         },
         {
           "month": "October",
-          "wpm": 95
+          "score": 95
         },
         {
           "month": "November",
-          "wpm": 89
+          "score": 89
         },
         {
           "month": "December",
-          "wpm": 93
+          "score": 93
         }
       ]
     }
