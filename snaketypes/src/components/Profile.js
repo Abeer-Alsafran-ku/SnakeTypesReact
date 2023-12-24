@@ -8,7 +8,7 @@ import Col from "react-bootstrap/Col";
 import { UserContext } from "./App";
 import defaultIcon from "../assets/img/profile-icon.jpg";
 import { Link } from "react-router-dom";
-import Dashboard from "./Dashboard";
+import LeaderBoard from "./LeaderBoard";
 
 const Profile = () => {
   const { user } = useContext(UserContext);
@@ -39,15 +39,15 @@ const Profile = () => {
           <Card.Text>Nice to see you again {user.username} ^_^</Card.Text>
         ) : (
           <Card.Text>
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
+            {/*Some quick example text to build on the card title and make up the
+            bulk of the card's content.*/}
           </Card.Text>
         )}
-        {/*{user ? <MiniChart /> : ""}*/}
-        <Card.Link href="#">View Stats</Card.Link>
-        <Card.Link href="#">View Profile</Card.Link>
-        {/*<Link to="/dashboard">Dashboard!</Link>*/}
-        <Dashboard />
+        {/*{user ? <MiniChart /> : ""}
+        <Card.Link href="#"> View Stats</Card.Link>
+        <Card.Link href="#">View Leader board</Card.Link>
+        <Link to="/dashboard">Dashboard!</Link>*/}
+        <LeaderBoard />
       </div>
     </>
   );

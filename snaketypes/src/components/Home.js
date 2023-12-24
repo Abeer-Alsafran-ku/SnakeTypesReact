@@ -36,7 +36,7 @@ const Home = () => {
             <li>
               Type the displayed words as quickly and accurately as possible.
             </li>
-            <li>Watch your WPM (Words Per Minute) improve over time ^_^</li>
+            <li>Watch your SCORES improve over time ^_^</li>
           </ul>
         </div>
       </div>
