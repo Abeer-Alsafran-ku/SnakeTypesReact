@@ -4,69 +4,376 @@
       "id": 1,
       "username": "John Doe",
       "password": "abc123@",
-      "avg_wpm": 60,
+      "score": 2,
       "img": "https://mdbcdn.b-cdn.net/img/new/avatars/2.webp",
       "gamesPlayed": 10,
       "highestWPM": 60,
       "monthlyStats": [
-        { "month": "January", "wpm": 80 },
-        { "month": "February", "wpm": 85 },
-        { "month": "March", "wpm": 75 },
-        { "month": "April", "wpm": 90 },
-        { "month": "May", "wpm": 88 },
-        { "month": "June", "wpm": 92 },
-        { "month": "July", "wpm": 78 },
-        { "month": "August", "wpm": 85 },
-        { "month": "September", "wpm": 87 },
-        { "month": "October", "wpm": 95 },
-        { "month": "November", "wpm": 89 },
-        { "month": "December", "wpm": 93 }
+        {
+          "month": "January",
+          "wpm": 80
+        },
+        {
+          "month": "February",
+          "wpm": 85
+        },
+        {
+          "month": "March",
+          "wpm": 75
+        },
+        {
+          "month": "April",
+          "wpm": 90
+        },
+        {
+          "month": "May",
+          "wpm": 88
+        },
+        {
+          "month": "June",
+          "wpm": 92
+        },
+        {
+          "month": "July",
+          "wpm": 78
+        },
+        {
+          "month": "August",
+          "wpm": 85
+        },
+        {
+          "month": "September",
+          "wpm": 87
+        },
+        {
+          "month": "October",
+          "wpm": 95
+        },
+        {
+          "month": "November",
+          "wpm": 89
+        },
+        {
+          "month": "December",
+          "wpm": 93
+        }
       ]
     },
     {
       "id": 2,
       "username": "emy",
       "password": "a1@",
-      "avg_wpm": 100,
+      "score": 6,
       "img": "https://mdbcdn.b-cdn.net/img/new/avatars/4.webp",
       "gamesPlayed": 15,
       "highestWPM": 77,
       "monthlyStats": [
-        { "month": "January", "wpm": 80 },
-        { "month": "February", "wpm": 85 },
-        { "month": "March", "wpm": 90 },
-        { "month": "April", "wpm": 78 },
-        { "month": "May", "wpm": 88 },
-        { "month": "June", "wpm": 92 },
-        { "month": "July", "wpm": 87 },
-        { "month": "August", "wpm": 95 },
-        { "month": "September", "wpm": 82 },
-        { "month": "October", "wpm": 89 },
-        { "month": "November", "wpm": 91 },
-        { "month": "December", "wpm": 86 }
+        {
+          "month": "January",
+          "wpm": 80
+        },
+        {
+          "month": "February",
+          "wpm": 85
+        },
+        {
+          "month": "March",
+          "wpm": 90
+        },
+        {
+          "month": "April",
+          "wpm": 78
+        },
+        {
+          "month": "May",
+          "wpm": 88
+        },
+        {
+          "month": "June",
+          "wpm": 92
+        },
+        {
+          "month": "July",
+          "wpm": 87
+        },
+        {
+          "month": "August",
+          "wpm": 95
+        },
+        {
+          "month": "September",
+          "wpm": 82
+        },
+        {
+          "month": "October",
+          "wpm": 89
+        },
+        {
+          "month": "November",
+          "wpm": 91
+        },
+        {
+          "month": "December",
+          "wpm": 86
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "username": "Ali",
+      "password": "password33@",
+      "score": 4,
+      "img": "https://mdbcdn.b-cdn.net/img/new/avatars/22.webp",
+      "gamesPlayed": 10,
+      "highestWPM": 60,
+      "monthlyStats": [
+        {
+          "month": "January",
+          "wpm": 80
+        },
+        {
+          "month": "February",
+          "wpm": 85
+        },
+        {
+          "month": "March",
+          "wpm": 75
+        },
+        {
+          "month": "April",
+          "wpm": 90
+        },
+        {
+          "month": "May",
+          "wpm": 88
+        },
+        {
+          "month": "June",
+          "wpm": 92
+        },
+        {
+          "month": "July",
+          "wpm": 78
+        },
+        {
+          "month": "August",
+          "wpm": 85
+        },
+        {
+          "month": "September",
+          "wpm": 87
+        },
+        {
+          "month": "October",
+          "wpm": 95
+        },
+        {
+          "month": "November",
+          "wpm": 89
+        },
+        {
+          "month": "December",
+          "wpm": 93
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "username": "ZAIN",
+      "password": "llll9&@",
+      "score": 3,
+      "img": "https://mdbcdn.b-cdn.net/img/new/avatars/25.webp",
+      "gamesPlayed": 10,
+      "highestWPM": 60,
+      "monthlyStats": [
+        {
+          "month": "January",
+          "wpm": 80
+        },
+        {
+          "month": "February",
+          "wpm": 85
+        },
+        {
+          "month": "March",
+          "wpm": 75
+        },
+        {
+          "month": "April",
+          "wpm": 90
+        },
+        {
+          "month": "May",
+          "wpm": 88
+        },
+        {
+          "month": "June",
+          "wpm": 92
+        },
+        {
+          "month": "July",
+          "wpm": 78
+        },
+        {
+          "month": "August",
+          "wpm": 85
+        },
+        {
+          "month": "September",
+          "wpm": 87
+        },
+        {
+          "month": "October",
+          "wpm": 95
+        },
+        {
+          "month": "November",
+          "wpm": 89
+        },
+        {
+          "month": "December",
+          "wpm": 93
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "username": "moh",
+      "password": "password33@",
+      "score": 5,
+      "img": "https://mdbcdn.b-cdn.net/img/new/avatars/23.webp",
+      "gamesPlayed": 10,
+      "highestWPM": 60,
+      "monthlyStats": [
+        {
+          "month": "January",
+          "wpm": 80
+        },
+        {
+          "month": "February",
+          "wpm": 85
+        },
+        {
+          "month": "March",
+          "wpm": 75
+        },
+        {
+          "month": "April",
+          "wpm": 90
+        },
+        {
+          "month": "May",
+          "wpm": 88
+        },
+        {
+          "month": "June",
+          "wpm": 92
+        },
+        {
+          "month": "July",
+          "wpm": 78
+        },
+        {
+          "month": "August",
+          "wpm": 85
+        },
+        {
+          "month": "September",
+          "wpm": 87
+        },
+        {
+          "month": "October",
+          "wpm": 95
+        },
+        {
+          "month": "November",
+          "wpm": 89
+        },
+        {
+          "month": "December",
+          "wpm": 93
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "username": "Jude",
+      "password": "qwer43#$@",
+      "score": 6,
+      "img": "https://mdbcdn.b-cdn.net/img/new/avatars/16.webp",
+      "gamesPlayed": 10,
+      "highestWPM": 60,
+      "monthlyStats": [
+        {
+          "month": "January",
+          "wpm": 80
+        },
+        {
+          "month": "February",
+          "wpm": 85
+        },
+        {
+          "month": "March",
+          "wpm": 75
+        },
+        {
+          "month": "April",
+          "wpm": 90
+        },
+        {
+          "month": "May",
+          "wpm": 88
+        },
+        {
+          "month": "June",
+          "wpm": 92
+        },
+        {
+          "month": "July",
+          "wpm": 78
+        },
+        {
+          "month": "August",
+          "wpm": 85
+        },
+        {
+          "month": "September",
+          "wpm": 87
+        },
+        {
+          "month": "October",
+          "wpm": 95
+        },
+        {
+          "month": "November",
+          "wpm": 89
+        },
+        {
+          "month": "December",
+          "wpm": 93
+        }
       ]
     }
   ],
   
   "algorithmTesting": [
-      {
-        "wordText": "appricot",
-        "difficulty": 1
-      },
-      {
-        "wordText": "avocado",
-        "difficulty": 2
-      },
-      {
-        "wordText": "pomegranate",
-        "difficulty": 3
-      },
-      {
-        "wordText": "apple",
-        "difficulty": 3
-      }
-    ],
-    
+    {
+      "wordText": "appricot",
+      "difficulty": 1
+    },
+    {
+      "wordText": "avocado",
+      "difficulty": 2
+    },
+    {
+      "wordText": "pomegranate",
+      "difficulty": 3
+    },
+    {
+      "wordText": "apple",
+      "difficulty": 3
+    }
+  ],
   "words": [
     {
       "wordText": "apple",
