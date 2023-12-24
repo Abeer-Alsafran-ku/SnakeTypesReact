@@ -68,6 +68,11 @@ const Login = () => {
           Let's Play 🐍!
           </Link>
         </div>
+        <div style={{ marginTop: "20px", marginLeft: "auto", marginRight: "auto", width: "20%"}}>
+          <Link to="/profile" className="start-button">
+          see your profile 📈!
+          </Link>
+        </div>
 
         <br />
         <br />

@@ -1,8 +1,5 @@
 .MiniChart {
-  width: 20%;
+  width: 100%;
   /* height: 35%; */
-  position: fixed;
   align-items: center;
-  padding-top: 15%;
-  margin-top: 1rem;
 }

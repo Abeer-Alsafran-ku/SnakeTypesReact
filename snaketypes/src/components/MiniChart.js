@@ -4,12 +4,12 @@ import { Chart as ChartJS } from 'chart.js/auto'
 import { Chart }            from 'react-chartjs-2'
 import '../assets/css/MiniChart.css'
 
-const MiniChart = () => {
+const MiniChart = ({monthlyStats}) => {
   const [data, setData] = useState({
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    labels: monthlyStats.map(entry => entry.month),
     datasets: [
       {
-        label: 'My First dataset',
+        label: 'Score Improvment',
         fill: false,
         lineTension: 0.1,
         backgroundColor: 'rgba(194, 116, 161, 0.5)',
@@ -27,7 +27,7 @@ const MiniChart = () => {
         pointHoverBorderWidth: 2,
         pointRadius: 1,
         pointHitRadius: 10,
-        data: [65, 59, 80, 81, 56, 55, 40],
+        data: monthlyStats.map(entry => entry.score),
       },
     ],
   });
@@ -53,12 +53,12 @@ const MiniChart = () => {
       };
 
       setData(newState);
-    }, 5000);
+    }, );
   }, []);
 
   return (
     <div className='MiniChart'>
-      <h3 className="mt-5">WPM Improvement</h3>
+      <h3 className="mt-5">Scores Improvement</h3>
       <Line data={data} options={{ responsive: true }} />
     </div>
   );
