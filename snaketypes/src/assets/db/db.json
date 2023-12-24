@@ -347,9 +347,67 @@
           "score": 93
         }
       ]
+    },
+    {
+      "username": "kkkk",
+      "password": "kk9*",
+      "avg_wpm": 0,
+      "img": "/static/media/profile-icon.3c0d12274070cd73f903.jpg",
+      "gamesPlayed": 0,
+      "highestWPM": 0,
+      "monthlyStats": [
+        {
+          "month": "0",
+          "wpm": 0
+        },
+        {
+          "month": "0",
+          "wpm": 0
+        },
+        {
+          "month": "0",
+          "wpm": 0
+        },
+        {
+          "month": "0",
+          "wpm": 0
+        },
+        {
+          "month": "0",
+          "wpm": 0
+        },
+        {
+          "month": "0",
+          "wpm": 0
+        },
+        {
+          "month": "0",
+          "wpm": 0
+        },
+        {
+          "month": "0",
+          "wpm": 0
+        },
+        {
+          "month": "0",
+          "wpm": 0
+        },
+        {
+          "month": "0",
+          "wpm": 0
+        },
+        {
+          "month": "0",
+          "wpm": 0
+        },
+        {
+          "month": "0",
+          "wpm": 0
+        }
+      ],
+      "id": 7
     }
   ],
-  
   "algorithmTesting": [
     {
       "wordText": "appricot",
