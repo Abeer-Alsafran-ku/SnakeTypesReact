@@ -4,6 +4,7 @@ import Card from "react-bootstrap/Card";
 import MiniChart from "./MiniChart";
 import { UserContext } from "./App";
 import defaultIcon from "../assets/img/profile-icon.jpg";
+import { Link } from "react-router-dom";
 
 const MiniProfile = () => {
   const { user } = useContext(UserContext);
@@ -20,7 +21,7 @@ const MiniProfile = () => {
           />
           <Card.Title>{user ? user.username : "Guest"}</Card.Title>
           <Card.Subtitle className="mb-2 text-muted">
-            {user ? `Average ${user.avg_wpm} wpm` : ""}
+            {user ? `Highest Score is ${user.score}` : ""}
           </Card.Subtitle>
           {/* <Card.Text>
                         Some quick example text to build on the card title and make up the
@@ -28,11 +29,11 @@ const MiniProfile = () => {
                     </Card.Text> */}
           {user ? (
             <ul id="profile-nav">
-              <li>
+              {/*<li>
                 <Card.Link href="#">View Stats</Card.Link>
-              </li>
+              </li>*/}
               <li>
-                <Card.Link href="#">View Profile</Card.Link>
+                <Link to="/profile">View Profile</Link>
               </li>
             </ul>
           ) : null}

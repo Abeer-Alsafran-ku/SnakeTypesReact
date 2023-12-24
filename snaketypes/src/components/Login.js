@@ -51,6 +51,11 @@ const Login = () => {
       <div>
         <h2>You are logged in!</h2>
         <p>Welcome, {user.username}!</p>
+        <p>Let's Play 🐍</p>
+        <img src={user.img} alt={user.username} style={{maxWidth: "10%", borderRadius: "50%",
+          marginRight: "10px",
+        }}
+/>
         <br />
         <br />
         <button onClick={handleLogout}>Logout</button>

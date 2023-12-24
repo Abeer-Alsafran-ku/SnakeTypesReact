@@ -22,8 +22,9 @@
 }
 
 .Home ul {
-  position: center;
   list-style-type: none;
+  padding: 0;
+  text-align: left;
 }
 
 .Home ul li:before {
@@ -31,11 +32,22 @@
   color: #3e5d81;
 }
 
-.Home ul li .btn {
-  height: 60px;
-  width: 200px;
-  margin-top: 10px;
-  border-radius: 30px;
+.Home p {
+  font-size: 16px;
+  color: black;
+}
+
+.start-button {
+  display: block;
+  width: 100%;
+  padding: 10px 20px;
   background-color: #3e5d81;
-  font-size: 20px;
+  color: white;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+}
+
+.start-button:hover {
+  background-color: #2a3f5a;
+  color: #fff;
 }

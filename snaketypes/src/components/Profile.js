@@ -32,17 +32,21 @@ const Profile = () => {
           style={{ display: "flex", maxWidth: "7%" }}
         />
         <Card.Title>{user ? user.username : "Guest"}</Card.Title>
-        <Card.Subtitle className="mb-2 text-muted">
-          {user ? `Average ${user.avg_wpm} wpm` : ""}{" "}
-        </Card.Subtitle>
+        
         {user ? (
           <Card.Text>Nice to see you again {user.username} ^_^</Card.Text>
         ) : (
           <Card.Text>
             {/*Some quick example text to build on the card title and make up the
             bulk of the card's content.*/}
+            <p>
+              <Link to="/login">Log in or Sign up now!</Link>
+            </p>
           </Card.Text>
         )}
+        <Card.Subtitle className="mb-2 text-muted">
+          {user ? `Highest Score is ${user.score}` : ""}{" "}
+        </Card.Subtitle>
         {/*{user ? <MiniChart /> : ""}
         <Card.Link href="#"> View Stats</Card.Link>
         <Card.Link href="#">View Leader board</Card.Link>

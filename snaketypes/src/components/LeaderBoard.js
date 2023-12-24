@@ -36,14 +36,16 @@ const LeaderBoard = () => {
         </tr>
       </thead>
       <tbody>
-        {allUsers.map((user, index) => (
-          <tr key={user.id}>
+        {allUsers.map((userItem, index) => (
+          <tr key={userItem.id} className={userItem.id === (user && user.id) ? "current-user" : ""}>
             <td>{index + 1}</td>
             <td>
-              <img src={user.img} alt={user.username} className="user-img" />
-              {user.username}
+              <img src={userItem.img} alt={userItem.username} className="user-img" />
+              <span style={{ fontWeight: userItem.id === (user && user.id) ? "bold" : "normal", color: userItem.id === (user && user.id) ? "green" : "inherit" }}> 
+              {userItem.username}
+              </span>
             </td>
-            <td>{user.score}</td>
+            <td>{userItem.score}</td>
           </tr>
         ))}
       </tbody>
