@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { fetchObj, getRandomWords, correctColoring, spanWord, filterChildNodes, getMaxTrackIdx, matchedWords } from "../assets/js/utils.js";
 import { makeMove, MOVE_RIGHT, MOVE_LEFT, MOVE_UP, MOVE_DOWN, increaseSnake, INCREMENT_SCORE, scoreUpdates, stopGame, RESET_SCORE, resetGame, setWords } from "../store/actions/actions.ts";
 import MiniProfile from "./MiniProfile.js";
+import Timer from "./Timer.js";
 
 
 const Stage = () => {
@@ -25,6 +26,10 @@ const Stage = () => {
     const [downTrackIdx, setDownTrackIdx] = useState(0);    // keeps track of the last correct character the user typed
     const [rightTrackIdx, setRightTrackIdx] = useState(0);    // keeps track of the last correct character the user typed
     const [leftTrackIdx, setLeftTrackIdx] = useState(0);    // keeps track of the last correct character the user typed
+
+    // states for timer
+    const [time, setTime] = useState(0);
+    const [running, setRunning] = useState(false);
 
     // function that dispaches movements
     const moveSnake = useCallback(
@@ -82,7 +87,17 @@ const Stage = () => {
 
     // the first time the page loads, set the words in redux store
     useEffect(()=>{
+        // hides Header when the Stage renders
+        let header = document.getElementsByClassName('Header')[0];
+        header.style.display = 'none';
+
+        dispatch(resetGame());                        // stops dispatching actions infinitly within saga
+        dispatch(scoreUpdates(RESET_SCORE));          // resets score
+        setTime(0);
         wordsInit();
+
+        // unhides Header when Stage is unmounted
+        return ()=>{header.style.display = 'block'}
     }, [] )
 
     // when the words are set, fill the wordDivs
@@ -191,18 +206,22 @@ const Stage = () => {
         let currentWords = [upWord, downWord, rightWord, leftWord];
         switch(currentValue.value){
             case upWord.wordText:
+                if(!running) setRunning(true);  // if stopwatch is not running start it
                 moveSnake(0, -20, disallowedDirection);
                 wordsInit('up', currentWords);
                 return;
             case downWord.wordText:
+                if(!running) setRunning(true);  // if stopwatch is not running start it
                 moveSnake(0, 20, disallowedDirection);
                 wordsInit('down', currentWords);
                 return;
             case rightWord.wordText:
+                if(!running) setRunning(true);  // if stopwatch is not running start it
                 moveSnake(20, 0, disallowedDirection);
                 wordsInit('right', currentWords);
                 return;
             case leftWord.wordText:
+                if(!running) setRunning(true);  // if stopwatch is not running start it
                 moveSnake(-20, 0, disallowedDirection);
                 wordsInit('left', currentWords);
                 return;
@@ -212,12 +231,19 @@ const Stage = () => {
         
     }   // end trackWord
 
+
     return ( 
 
                 <div className='Stage'>
-                    <MiniProfile />
-                    <ScoreCard />
 
+                    <MiniProfile />
+
+                    {/* Shows some stats on the right */}
+                    <div className="game-stats">
+                        <ScoreCard />
+                        <Timer time={time} setTime={setTime} running={running} setRunning={setRunning} />
+                    </div>
+                    
                     <div className="wordDivs">
                         <div className='word' id="upWord"></div>
                         <div className='word' id="downWord"></div>
@@ -231,7 +257,7 @@ const Stage = () => {
                         onBlur={()=>{document.getElementsByClassName('user-input')[0].focus()}} 
                         autoFocus
                     />
-                    <CanvasBoard width={w} height={h} />
+                    <CanvasBoard width={w} height={h} setTime={setTime} running={running} setRunning={setRunning} />
 
                 </div>
         

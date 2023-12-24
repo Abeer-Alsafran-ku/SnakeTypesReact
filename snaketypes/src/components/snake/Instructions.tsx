@@ -10,7 +10,7 @@ const Instruction = ({ resetBoard }: IInstructionProps) => (
       How to Play
     </Heading> */}
     <Heading as="h5" size="sm" mt={1}>
-    NOTE: Start the game by pressing <Kbd>d</Kbd>
+    NOTE: Start the game by ... <Kbd>...</Kbd>
     </Heading>
     {/* <Flex flexDirection="row" mt={3}>
       <Flex flexDirection={"column"}>

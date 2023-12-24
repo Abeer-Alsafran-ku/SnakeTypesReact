@@ -7,7 +7,6 @@ import React from "react";
 import { makeMove, MOVE_RIGHT, MOVE_LEFT, MOVE_UP, MOVE_DOWN, increaseSnake, INCREMENT_SCORE, scoreUpdates, stopGame, RESET_SCORE, resetGame, setWords } from "../../store/actions/actions.ts";
 
 import '../../assets/css/CanvasBoard.css'
-import { delay } from "redux-saga/effects";
 import Instruction from "./Instructions.tsx";
 
 export interface ICanvasBoard {
@@ -16,7 +15,7 @@ export interface ICanvasBoard {
 };
 
 
-const CanvasBoard = ({ height, width }: ICanvasBoard) => {
+const CanvasBoard = ({ height, width, time, setTime, running, setRunning }) => {
 
   // used to dispatch actions to reducer
   const dispatch = useDispatch();
@@ -121,7 +120,11 @@ const CanvasBoard = ({ height, width }: ICanvasBoard) => {
     if (hasSnakeCollided(snake, snake[0]) || isSnakeOutOfBound(snake, width, height)) {
       setGameEnded(true);
       dispatch(stopGame());
+      setRunning(false);
       window.removeEventListener('keypress', handleKeyEvents);
+    }
+    else{
+      setGameEnded(false)
     }
 
   }, [context, pos, snake, height, width, dispatch, handleKeyEvents]);
@@ -153,6 +156,7 @@ const CanvasBoard = ({ height, width }: ICanvasBoard) => {
   const resetBoard = useCallback(() => {
     window.removeEventListener("keypress", handleKeyEvents);
 
+    setTime(0);                                   // resets timer
     dispatch(resetGame());                        // stops dispatching actions infinitly within saga
     dispatch(scoreUpdates(RESET_SCORE));          // resets score
     clearBoard(context);                          // clears board
@@ -214,9 +218,20 @@ const CanvasBoard = ({ height, width }: ICanvasBoard) => {
         height={height}
         width={width}
       />
-      <Instruction resetBoard={resetBoard} />
-      <button onClick={resetBoard}>RESET</button>
-
+      {/* <Instruction resetBoard={resetBoard} /> */}
+      {/* <button className="reset-button" onClick={resetBoard}>RESET</button> */}
+      
+      {(gameEnded)?
+        <div className="btn btn-three">
+          <button
+            style={{background: "none", color: "white",	border: "none",	padding: 0,	font: "inherit", cursor: "pointer", outline: "inherit"}}
+            onClick={resetBoard}>
+              RESET
+          </button>
+        </div>
+        :
+        <></>
+      }
     </div>
   );
 };

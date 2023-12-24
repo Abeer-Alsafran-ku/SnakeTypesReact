@@ -3,8 +3,8 @@ import { DOWN, LEFT, MOVE_DOWN, MOVE_LEFT, MOVE_RIGHT, MOVE_UP, RESET, RIGHT, se
 import { ISnakeCoord } from "../reducers/reducers.ts";
 
 // a worker saga that dispatches the actions to the Redux store
-  export function* moveSaga(params: { type: string; payload: ISnakeCoord;})
-  : Generator<
+  export function* moveSaga(params: { type: string; payload: ISnakeCoord;}):
+  Generator<
     | PutEffect<{ type: string; payload: ISnakeCoord }>
     | PutEffect<{ type: string; payload: string }>
     | CallEffect<true>
