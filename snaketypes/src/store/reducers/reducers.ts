@@ -25,12 +25,13 @@ const globalState: IGlobalState = {
     { x: 500, y: 300 },
   ],
   
-  disallowedDirection: "", // refer to event listener in CanvasBoard: initially is empty to identify gamestart
+  disallowedDirection: "", // If snake is moving right it should not be able to move left
   score: 0,
   upWord: 'up-init',
   downWord: 'down-init',
   rightWord: 'right-init',
   leftWord: 'left-init',
+
 };
 
 // the reducer takes an action and returns the new state
@@ -45,11 +46,12 @@ const gameReducer = (state = globalState, action) => {
           // To update snake location, we add values to the snake head, then pop the tail (last block)
           let newSnake = [...state.snake];
           newSnake = [{
-            //New x and y coordinates
+            // New x and y coordinates
             x: state.snake[0].x + action.payload[0],
             y: state.snake[0].y + action.payload[1],
           }, ...newSnake];
           
+          // Prevents infinite increase in snake size
           newSnake.pop();
           return {
             ...state,
