@@ -42,12 +42,22 @@ const Register = () => {
     }
 
     if (isUsernameValid && isPasswordValid && isConfirmPasswordValid) {
+      const newUser = {
+        username,
+        password,
+        avg_wpm: 0,
+        img: defaultIcon,
+        gamesPlayed: 0,
+        highestWPM: 0,
+        monthlyStats: Array(12).fill({ month: "0", wpm: 0 }),
+      };
       fetch("http://localhost:5000/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
+        body: JSON.stringify(newUser),})
+          /*{
           username,
           password,
           avg_wpm: 0,
@@ -56,7 +66,7 @@ const Register = () => {
           highestWPM: 0,
           monthlyStats: Array(12).fill({ month: "0", wpm: 0 }),
         }),
-      })
+      })*/
         .then((res) => {
           if (!res.ok) {
             throw Error("couldn't fetch user");
@@ -65,6 +75,7 @@ const Register = () => {
           return res.json();
         })
         .then((user) => {
+          localStorage.setItem("user", JSON.stringify(user));
           console.log("Registration successful");
           setUser(user);
           setRegistrationSuccess(true);
@@ -76,6 +87,7 @@ const Register = () => {
   };
 
   const handleLogout = () => {
+    localStorage.removeItem("user");
     setUser(null);
     console.log("You have logged out");
   };
