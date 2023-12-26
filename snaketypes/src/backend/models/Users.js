@@ -14,7 +14,17 @@ const UsersSchema = new mongoose.Schema({
     },
     img: {
         type: String,
-    }
+    },
+    monthlyStats: [
+        {
+            month: {
+                type: String,
+            },
+            score: {
+                type: Number,
+            }
+        }
+    ]
 }, { versionKey: false })
 
 const Users = mongoose.model("Users", UsersSchema);

@@ -49,7 +49,7 @@ const Register = () => {
         img: defaultIcon,
         gamesPlayed: 0,
         highestWPM: 0,
-        monthlyStats: Array(12).fill({ month: "0", wpm: 0 }),
+        monthlyStats: Array(12).fill({ month: "0", score: 0 }),
       };
       fetch("http://localhost:5000/users", {
         method: "POST",
